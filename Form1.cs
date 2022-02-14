@@ -8,9 +8,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel;
-using Syncfusion.Windows.Forms.Chart;
 using WeatherAppUI.Method_Classes;
-
+using System.Windows.Forms;
 
 namespace WeatherAppUI
 {
@@ -39,7 +38,9 @@ namespace WeatherAppUI
             //ChartFunctions
            
             ChartFunctions.GetWeatherData(DateTime.Parse("2016-10-01"), DateTime.Parse("2016-10-02"));
-           
+            
+            chart1.AlignDataPointsByAxisLabel();
+            weatherDatasBindingSource.DataSource = ChartFunctions.outsideData;
             //End Chart Functions
 
         }
@@ -54,7 +55,18 @@ namespace WeatherAppUI
            
             DateTime date = dateTimePicker1.Value;
             ChartFunctions.GetWeatherData(date, date.AddDays(1));
-           
+            if (outSide == true)
+            {
+                weatherDatasBindingSource.DataSource = ChartFunctions.outsideData;
+                chart1.DataBind();
+                
+            }
+            else
+            {
+                weatherDatasBindingSource.DataSource = ChartFunctions.insideData;
+                chart1.DataBind();
+                
+            }
 
         }
 
@@ -65,7 +77,8 @@ namespace WeatherAppUI
                 OutDorr_Btn.ForeColor = Color.Blue;
                 Indoors_Btn.ForeColor = Color.Black;
                 outSide = true;
-               
+                weatherDatasBindingSource.DataSource = ChartFunctions.outsideData;
+                chart1.DataBind();
             }
         }
 
@@ -76,8 +89,12 @@ namespace WeatherAppUI
                 Indoors_Btn.ForeColor = Color.Blue;
                 OutDorr_Btn.ForeColor = Color.Black;
                 outSide = false;
-              
-             
+                chart1.ChartAreas[0].AxisX.Minimum = 0;
+                chart1.ChartAreas[0].AxisX.Maximum = ChartFunctions.insideData.Count + 500;
+                
+                weatherDatasBindingSource.DataSource = ChartFunctions.insideData;
+                chart1.DataBind();
+
             }
         }
 
@@ -131,7 +148,9 @@ namespace WeatherAppUI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            // TODO: This line of code loads data into the 'weatherDBDataSet.WeatherDatas' table. You can move, or remove it, as needed.
+            this.weatherDatasTableAdapter.Fill(this.weatherDBDataSet.WeatherDatas);
+
 
         }
 

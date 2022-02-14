@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="WeatherDBDataSet" targetNamespace="http://tempuri.org/WeatherDBDataSet.xsd" xmlns:mstns="http://tempuri.org/WeatherDBDataSet.xsd" xmlns="http://tempuri.org/WeatherDBDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="WeatherDBConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="WeatherDBConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.WeatherAppUI.Properties.Settings.GlobalReference.Default.WeatherDBConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="WeatherDatasTableAdapter" GeneratorDataComponentClassName="WeatherDatasTableAdapter" Name="WeatherDatas" UserDataComponentName="WeatherDatasTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="WeatherDBConnectionString (Settings)" DbObjectName="WeatherDB.dbo.WeatherDatas" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Date, Temperature FROM dbo.WeatherDatas</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Date" DataSetColumn="Date" />
+              <Mapping SourceColumn="Temperature" DataSetColumn="Temperature" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="WeatherDBDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="WeatherDBDataSet" msprop:Generator_DataSetName="WeatherDBDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="WeatherDatas" msprop:Generator_RowEvHandlerName="WeatherDatasRowChangeEventHandler" msprop:Generator_RowDeletedName="WeatherDatasRowDeleted" msprop:Generator_RowDeletingName="WeatherDatasRowDeleting" msprop:Generator_RowEvArgName="WeatherDatasRowChangeEvent" msprop:Generator_TablePropName="WeatherDatas" msprop:Generator_RowChangedName="WeatherDatasRowChanged" msprop:Generator_RowChangingName="WeatherDatasRowChanging" msprop:Generator_TableClassName="WeatherDatasDataTable" msprop:Generator_RowClassName="WeatherDatasRow" msprop:Generator_TableVarName="tableWeatherDatas" msprop:Generator_UserTableName="WeatherDatas">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Date" msprop:Generator_ColumnPropNameInRow="Date" msprop:Generator_ColumnPropNameInTable="DateColumn" msprop:Generator_ColumnVarNameInTable="columnDate" msprop:Generator_UserColumnName="Date" type="xs:dateTime" />
+              <xs:element name="Temperature" msprop:Generator_ColumnPropNameInRow="Temperature" msprop:Generator_ColumnPropNameInTable="TemperatureColumn" msprop:Generator_ColumnVarNameInTable="columnTemperature" msprop:Generator_UserColumnName="Temperature" type="xs:float" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
