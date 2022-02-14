@@ -28,15 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            Syncfusion.Windows.Forms.Chart.ChartSeries chartSeries1 = new Syncfusion.Windows.Forms.Chart.ChartSeries();
-            Syncfusion.Windows.Forms.Chart.ChartDataBindModel chartDataBindModel1 = new Syncfusion.Windows.Forms.Chart.ChartDataBindModel();
-            Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo chartCustomShapeInfo1 = new Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo();
-            Syncfusion.Windows.Forms.Chart.ChartLineInfo chartLineInfo1 = new Syncfusion.Windows.Forms.Chart.ChartLineInfo();
-            this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.weatherDBDataSet1 = new WeatherAppUI.WeatherDBDataSet1();
-            this.weatherDBDataSet = new WeatherAppUI.WeatherDBDataSet();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Help_Btn = new System.Windows.Forms.Button();
             this.Indoors_Btn = new System.Windows.Forms.Button();
@@ -53,19 +48,7 @@
             this.Temp_Sort_Lbl = new System.Windows.Forms.Label();
             this.ListBox_Btn = new System.Windows.Forms.Button();
             this.Top_Pnl = new System.Windows.Forms.Panel();
-            this.Minutes_Hour_Btn = new System.Windows.Forms.Button();
-            this.weatherDatasTableAdapter = new WeatherAppUI.WeatherDBDataSetTableAdapters.WeatherDatasTableAdapter();
-            this.weatherDatasTableAdapter1 = new WeatherAppUI.WeatherDBDataSet1TableAdapters.WeatherDatasTableAdapter();
-            this.Temperature_Chart = new Syncfusion.Windows.Forms.Chart.ChartControl();
-            this.weatherDBDataSet2 = new WeatherAppUI.WeatherDBDataSet2();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.weatherDatasTableAdapter2 = new WeatherAppUI.WeatherDBDataSet2TableAdapters.WeatherDatasTableAdapter();
-            this.weatherDBDataSet3 = new WeatherAppUI.WeatherDBDataSet3();
-            this.bindingSource3 = new System.Windows.Forms.BindingSource(this.components);
-            this.weatherDatasTableAdapter3 = new WeatherAppUI.WeatherDBDataSet3TableAdapters.WeatherDatasTableAdapter();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.weatherDBDataSet1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.weatherDBDataSet)).BeginInit();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -73,26 +56,8 @@
             this.Dryness_Pnl.SuspendLayout();
             this.Temp_Sort_Pnl.SuspendLayout();
             this.Top_Pnl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.weatherDBDataSet2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.weatherDBDataSet3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // bindingSource2
-            // 
-            this.bindingSource2.DataMember = "WeatherDatas";
-            this.bindingSource2.DataSource = this.weatherDBDataSet1;
-            // 
-            // weatherDBDataSet1
-            // 
-            this.weatherDBDataSet1.DataSetName = "WeatherDBDataSet1";
-            this.weatherDBDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // weatherDBDataSet
-            // 
-            this.weatherDBDataSet.DataSetName = "WeatherDBDataSet";
-            this.weatherDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // panel1
             // 
@@ -286,7 +251,6 @@
             // Top_Pnl
             // 
             this.Top_Pnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
-            this.Top_Pnl.Controls.Add(this.Minutes_Hour_Btn);
             this.Top_Pnl.Controls.Add(this.pictureBox2);
             this.Top_Pnl.Controls.Add(this.dateTimePicker1);
             this.Top_Pnl.Dock = System.Windows.Forms.DockStyle.Top;
@@ -298,127 +262,23 @@
             this.Top_Pnl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Top_Pnl_MouseMove);
             this.Top_Pnl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Top_Pnl_MouseUp);
             // 
-            // Minutes_Hour_Btn
+            // chart1
             // 
-            this.Minutes_Hour_Btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Minutes_Hour_Btn.Location = new System.Drawing.Point(934, 9);
-            this.Minutes_Hour_Btn.Name = "Minutes_Hour_Btn";
-            this.Minutes_Hour_Btn.Size = new System.Drawing.Size(75, 23);
-            this.Minutes_Hour_Btn.TabIndex = 8;
-            this.Minutes_Hour_Btn.Text = "Hours";
-            this.Minutes_Hour_Btn.UseVisualStyleBackColor = true;
-            this.Minutes_Hour_Btn.Click += new System.EventHandler(this.Minutes_Hour_Btn_Click);
-            // 
-            // weatherDatasTableAdapter
-            // 
-            this.weatherDatasTableAdapter.ClearBeforeFill = true;
-            // 
-            // weatherDatasTableAdapter1
-            // 
-            this.weatherDatasTableAdapter1.ClearBeforeFill = true;
-            // 
-            // Temperature_Chart
-            // 
-            this.Temperature_Chart.BackInterior = new Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Vertical, System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(153)))), ((int)(((byte)(219))))), System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(8)))), ((int)(((byte)(56))))));
-            this.Temperature_Chart.ChartArea.BackInterior = new Syncfusion.Drawing.BrushInfo(System.Drawing.Color.Transparent);
-            this.Temperature_Chart.ChartArea.CursorLocation = new System.Drawing.Point(0, 0);
-            this.Temperature_Chart.ChartArea.CursorReDraw = false;
-            this.Temperature_Chart.ChartInterior = new Syncfusion.Drawing.BrushInfo(System.Drawing.Color.Transparent);
-            this.Temperature_Chart.CustomPalette = new System.Drawing.Color[] {
-        System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(144)))), ((int)(((byte)(34))))),
-        System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(190)))), ((int)(((byte)(82))))),
-        System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(222)))), ((int)(((byte)(37))))),
-        System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(66)))), ((int)(((byte)(153))))),
-        System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(90)))), ((int)(((byte)(36))))),
-        System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(72)))), ((int)(((byte)(38)))))};
-            this.Temperature_Chart.DataSourceName = "bindingSource2";
-            this.Temperature_Chart.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Temperature_Chart.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.Temperature_Chart.IsWindowLess = false;
-            // 
-            // 
-            // 
-            this.Temperature_Chart.Legend.Location = new System.Drawing.Point(58, 75);
-            this.Temperature_Chart.Legend.Orientation = Syncfusion.Windows.Forms.Chart.ChartOrientation.Horizontal;
-            this.Temperature_Chart.Legend.Position = Syncfusion.Windows.Forms.Chart.ChartDock.Top;
-            this.Temperature_Chart.Localize = null;
-            this.Temperature_Chart.Location = new System.Drawing.Point(459, 40);
-            this.Temperature_Chart.Name = "Temperature_Chart";
-            this.Temperature_Chart.Palette = Syncfusion.Windows.Forms.Chart.ChartColorPalette.Custom;
-            this.Temperature_Chart.PrimaryXAxis.GridLineType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.Temperature_Chart.PrimaryXAxis.LineType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.Temperature_Chart.PrimaryXAxis.LogLabelsDisplayMode = Syncfusion.Windows.Forms.Chart.LogLabelsDisplayMode.Default;
-            this.Temperature_Chart.PrimaryXAxis.Margin = true;
-            this.Temperature_Chart.PrimaryXAxis.TickColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.Temperature_Chart.PrimaryXAxis.TitleColor = System.Drawing.SystemColors.ControlText;
-            this.Temperature_Chart.PrimaryYAxis.GridLineType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.Temperature_Chart.PrimaryYAxis.LineType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.Temperature_Chart.PrimaryYAxis.LogLabelsDisplayMode = Syncfusion.Windows.Forms.Chart.LogLabelsDisplayMode.Default;
-            this.Temperature_Chart.PrimaryYAxis.Margin = true;
-            this.Temperature_Chart.PrimaryYAxis.TickColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.Temperature_Chart.PrimaryYAxis.TitleColor = System.Drawing.SystemColors.ControlText;
-            chartSeries1.FancyToolTip.ResizeInsideSymbol = true;
-            chartSeries1.Name = "Temps";
-            chartSeries1.Resolution = 0D;
-            chartDataBindModel1.DataSource = this.bindingSource2;
-            chartDataBindModel1.XName = "Date";
-            chartDataBindModel1.YNames = new string[] {
-        "Temperature"};
-            chartSeries1.SeriesModel = chartDataBindModel1;
-            chartSeries1.StackingGroup = "Default Group";
-            chartSeries1.Style.AltTagFormat = "";
-            chartSeries1.Style.Border.Width = 2F;
-            chartSeries1.Style.DisplayShadow = true;
-            chartSeries1.Style.DrawTextShape = false;
-            chartLineInfo1.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-            chartLineInfo1.Color = System.Drawing.SystemColors.ControlText;
-            chartLineInfo1.DashPattern = null;
-            chartLineInfo1.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            chartLineInfo1.Width = 1F;
-            chartCustomShapeInfo1.Border = chartLineInfo1;
-            chartCustomShapeInfo1.Color = System.Drawing.SystemColors.HighlightText;
-            chartCustomShapeInfo1.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
-            chartSeries1.Style.TextShape = chartCustomShapeInfo1;
-            chartSeries1.Text = "Temps";
-            chartSeries1.Type = Syncfusion.Windows.Forms.Chart.ChartSeriesType.Spline;
-            this.Temperature_Chart.Series.Add(chartSeries1);
-            this.Temperature_Chart.Size = new System.Drawing.Size(1072, 402);
-            this.Temperature_Chart.TabIndex = 7;
-            this.Temperature_Chart.Text = "Temperature Chart";
-            // 
-            // 
-            // 
-            this.Temperature_Chart.Title.Name = "Default";
-            this.Temperature_Chart.Titles.Add(this.Temperature_Chart.Title);
-            this.Temperature_Chart.VisualTheme = "";
-            // 
-            // weatherDBDataSet2
-            // 
-            this.weatherDBDataSet2.DataSetName = "WeatherDBDataSet2";
-            this.weatherDBDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // bindingSource1
-            // 
-            this.bindingSource1.DataMember = "WeatherDatas";
-            this.bindingSource1.DataSource = this.weatherDBDataSet2;
-            // 
-            // weatherDatasTableAdapter2
-            // 
-            this.weatherDatasTableAdapter2.ClearBeforeFill = true;
-            // 
-            // weatherDBDataSet3
-            // 
-            this.weatherDBDataSet3.DataSetName = "WeatherDBDataSet3";
-            this.weatherDBDataSet3.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // bindingSource3
-            // 
-            this.bindingSource3.DataMember = "WeatherDatas";
-            this.bindingSource3.DataSource = this.weatherDBDataSet3;
-            // 
-            // weatherDatasTableAdapter3
-            // 
-            this.weatherDatasTableAdapter3.ClearBeforeFill = true;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Top;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(459, 40);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(1072, 359);
+            this.chart1.TabIndex = 7;
+            this.chart1.Text = "chart1";
+            this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // Form1
             // 
@@ -426,7 +286,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(186)))), ((int)(((byte)(187)))));
             this.ClientSize = new System.Drawing.Size(1531, 877);
-            this.Controls.Add(this.Temperature_Chart);
+            this.Controls.Add(this.chart1);
             this.Controls.Add(this.Top_Pnl);
             this.Controls.Add(this.ListBox_Btn);
             this.Controls.Add(this.List_Pnl);
@@ -436,9 +296,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.weatherDBDataSet1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.weatherDBDataSet)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -448,10 +305,7 @@
             this.Temp_Sort_Pnl.ResumeLayout(false);
             this.Temp_Sort_Pnl.PerformLayout();
             this.Top_Pnl.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.weatherDBDataSet2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.weatherDBDataSet3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -474,19 +328,7 @@
         private System.Windows.Forms.Label Dryness_Lbl;
         private System.Windows.Forms.Button ListBox_Btn;
         private System.Windows.Forms.Panel Top_Pnl;
-        private WeatherDBDataSet weatherDBDataSet;
-        private WeatherDBDataSetTableAdapters.WeatherDatasTableAdapter weatherDatasTableAdapter;
-        private WeatherDBDataSet1 weatherDBDataSet1;
-        private WeatherDBDataSet1TableAdapters.WeatherDatasTableAdapter weatherDatasTableAdapter1;
-        private Syncfusion.Windows.Forms.Chart.ChartControl Temperature_Chart;
-        private System.Windows.Forms.Button Minutes_Hour_Btn;
-        public System.Windows.Forms.BindingSource bindingSource2;
-        private WeatherDBDataSet2 weatherDBDataSet2;
-        private System.Windows.Forms.BindingSource bindingSource1;
-        private WeatherDBDataSet2TableAdapters.WeatherDatasTableAdapter weatherDatasTableAdapter2;
-        private WeatherDBDataSet3 weatherDBDataSet3;
-        private System.Windows.Forms.BindingSource bindingSource3;
-        private WeatherDBDataSet3TableAdapters.WeatherDatasTableAdapter weatherDatasTableAdapter3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }
 

@@ -37,11 +37,9 @@ namespace WeatherAppUI
 
 
             //ChartFunctions
-            bindingSource2.DataSource = ChartFunctions.outsideData;
+           
             ChartFunctions.GetWeatherData(DateTime.Parse("2016-10-01"), DateTime.Parse("2016-10-02"));
-            SetChartDetails();
-            SetChartToHours(DateTime.Parse("2016-10-01"));
-            UpdateDataBindingForChart();
+           
             //End Chart Functions
 
         }
@@ -56,9 +54,7 @@ namespace WeatherAppUI
            
             DateTime date = dateTimePicker1.Value;
             ChartFunctions.GetWeatherData(date, date.AddDays(1));
-            UpdateDataBindingForChart();
-            SetChartDetails();
-            Temperature_Chart.Update();
+           
 
         }
 
@@ -69,8 +65,7 @@ namespace WeatherAppUI
                 OutDorr_Btn.ForeColor = Color.Blue;
                 Indoors_Btn.ForeColor = Color.Black;
                 outSide = true;
-                Temp_ListBox_LBox.DataSource = calulations.WarmestDayToColdest("Ute").Result; // ~150ms
-                UpdateDataBindingForChart(); // ~250ms
+               
             }
         }
 
@@ -81,8 +76,8 @@ namespace WeatherAppUI
                 Indoors_Btn.ForeColor = Color.Blue;
                 OutDorr_Btn.ForeColor = Color.Black;
                 outSide = false;
-                Temp_ListBox_LBox.DataSource = calulations.WarmestDayToColdest("Inne").Result; // ~150ms
-                UpdateDataBindingForChart(); // ~250ms
+              
+             
             }
         }
 
@@ -136,14 +131,7 @@ namespace WeatherAppUI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'weatherDBDataSet3.WeatherDatas' table. You can move, or remove it, as needed.
-            this.weatherDatasTableAdapter3.Fill(this.weatherDBDataSet3.WeatherDatas);
-            // TODO: This line of code loads data into the 'weatherDBDataSet2.WeatherDatas' table. You can move, or remove it, as needed.
-            this.weatherDatasTableAdapter2.Fill(this.weatherDBDataSet2.WeatherDatas);
-            // TODO: This line of code loads data into the 'weatherDBDataSet1.WeatherDatas' table. You can move, or remove it, as needed.
-            this.weatherDatasTableAdapter1.Fill(this.weatherDBDataSet1.WeatherDatas);
-            // TODO: This line of code loads data into the 'weatherDBDataSet.WeatherDatas' table. You can move, or remove it, as needed.
-
+            
 
         }
 
@@ -153,66 +141,10 @@ namespace WeatherAppUI
         {
 
         }
-        void SetChartDetails() // Skulle vela bryta ut dessa funktioner, men det fungerar inte som det ska då! 
-        {
-            this.Temperature_Chart.PrimaryXAxis.IntervalType = ChartDateTimeIntervalType.Days;
-            this.Temperature_Chart.PrimaryXAxis.LabelIntersectAction = ChartLabelIntersectAction.Rotate;
 
-            this.Temperature_Chart.PrimaryXAxis.ValueType = ChartValueType.DateTime;
-            this.Temperature_Chart.PrimaryXAxis.RangeType = ChartAxisRangeType.Set;
-
-            this.Temperature_Chart.PrimaryXAxis.DateTimeFormat = "HH:mm";
-
-            if (Minutes_Hour_Btn.Text == "Minutes") SetChartToHours(dateTimePicker1.Value); else SetChartToMinutes(dateTimePicker1.Value);
-        }
-        void SetChartToMinutes(DateTime start)
-        {
-            this.Temperature_Chart.PrimaryXAxis.DateTimeRange = new ChartDateTimeRange(start, start.AddMinutes(1440), 60, ChartDateTimeIntervalType.Minutes);
-
-            this.Temperature_Chart.PrimaryXAxis.DateTimeInterval.Type = ChartDateTimeIntervalType.Minutes;
-
-
-        }
-        void SetChartToHours(DateTime start)
-        {
-            this.Temperature_Chart.PrimaryXAxis.DateTimeRange = new ChartDateTimeRange(start, start.AddHours(24), 1, ChartDateTimeIntervalType.Hours);
-
-            this.Temperature_Chart.PrimaryXAxis.DateTimeInterval.Type = ChartDateTimeIntervalType.Hours;
-
-
-        }
-
-        private void Minutes_Hour_Btn_Click(object sender, EventArgs e)
-        {
-            if (Minutes_Hour_Btn.Text == "Hours")
-            {
-                Minutes_Hour_Btn.Text = "Minutes";
-                SetChartDetails();
-                UpdateDataBindingForChart();
-                Temperature_Chart.Update();
-            }
-            else if (Minutes_Hour_Btn.Text == "Minutes")
-            {
-                Minutes_Hour_Btn.Text = "Hours";
-                SetChartDetails();
-                UpdateDataBindingForChart();
-                Temperature_Chart.Update();
-            }
-        }
-        public void UpdateDataBindingForChart()
+        private void chart1_Click(object sender, EventArgs e)
         {
             
-            if (outSide == true)
-            {
-
-                bindingSource2.DataSource = ChartFunctions.outsideData;
-
-            }
-            else
-            {
-                bindingSource2.DataSource = ChartFunctions.insideData;
-
-            }
         }
     }
 }

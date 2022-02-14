@@ -14,12 +14,12 @@ namespace WeatherAppUI.Method_Classes
         {
             using (var context = new WeatherContext())
             {
-                var averageTempQ = context.WeatherDatas.Where(x => x.Placement.Contains(input))
+                var warmToCold = context.WeatherDatas.Where(x => x.Placement.Contains(input))
                      .GroupBy(x => new { x.Date.Month, x.Date.Day })
                      .Select(x => new { Date = x.Key, Temperature = x.Average(y => y.Temperature) })
                      .OrderByDescending(x => x.Temperature)
                      .ToList();
-                List<string> result = averageTempQ.Select(x => x.ToString()).ToList();
+                List<string> result = warmToCold.Select(x => String.Format("Månad:{0}:Dag{1} | Temperatur {2}", x.Date.Month, x.Date.Day, Math.Round(x.Temperature, 1))).ToList();
                 return await Task.FromResult(result);
             }
             
