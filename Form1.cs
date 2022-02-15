@@ -28,7 +28,7 @@ namespace WeatherAppUI
             InitializeComponent();
 
             List_Pnl.Visible = false;
-            Temp_ListBox_LBox.DataSource = calulations.WarmestDayToColdest("Ute").Result;
+            Temp_ListBox_LBox.DataSource = calulations.WarmestDayToColdestAsync("Ute").Result;
 
 
             List_Pnl.Visible = false;
