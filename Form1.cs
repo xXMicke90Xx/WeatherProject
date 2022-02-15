@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using WeatherAppUI.Method_Classes;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace WeatherAppUI
 {
@@ -21,30 +22,76 @@ namespace WeatherAppUI
         Point lastLocation; // Till för samma som ovan
         bool outSide = true;// Håller Koll på vilken knapp som är aktiv mellan inne/ute
         Calulations calulations = new Calulations();
-        
+
         public Form1()
         {
             InitializeComponent();
 
             List_Pnl.Visible = false;
             Temp_ListBox_LBox.DataSource = calulations.WarmestDayToColdest("Ute").Result;
-            
+
 
             List_Pnl.Visible = false;
             OutDorr_Btn.ForeColor = Color.Blue;
             //DataFileRead.WriteToDatabase();
 
+            autum_Lbl.Parent = Autum_PBox;
+            Winter_Lbl.Parent = Winter_PBox;
+            autum_Lbl.Dock = DockStyle.Top;
+            Winter_Lbl.Dock = DockStyle.Top;
+
 
             //ChartFunctions
-           
-            ChartFunctions.GetWeatherData(DateTime.Parse("2016-10-01"), DateTime.Parse("2016-10-02"));
+
+            this.chart1.Titles.Add("Temperature");
             
-            chart1.AlignDataPointsByAxisLabel();
-            weatherDatasBindingSource.DataSource = ChartFunctions.outsideData;
+            ChartFunctions.GetWeatherData(DateTime.Parse("2016-10-01"), DateTime.Parse("2016-10-02"));
+            SplineChartTemperatures(ChartFunctions.outsideData);
+
             //End Chart Functions
 
         }
+
         
+
+        private void SplineChartTemperatures(List<WeatherData> chart)
+        {
+            this.chart1.Series.Clear();
+            Series series = chart1.Series.Add("Temperature");
+            series.Color = Color.Firebrick;
+            series.BorderWidth = 2;
+            series.ChartType = SeriesChartType.Spline;
+            
+            chart1.ChartAreas[0].AxisX.Interval = 31;
+            chart1.ChartAreas[0].AxisY.Interval = 2;
+            chart1.ChartAreas[0].AxisX.Minimum = 0;
+            chart1.ChartAreas[0].AxisY.IsStartedFromZero = false;
+            float max = 0;
+            float min = 100;
+            foreach(var c in chart)
+            {
+                if (c.Temperature > max)
+                    max = c.Temperature;
+                if(c.Temperature < min)
+                    min = c.Temperature;
+            }
+            if (max < min+3)
+                chart1.ChartAreas[0].AxisY.Interval = 0.5f;
+
+
+            string hours = ChartFunctions.outsideData[0].Date.Hour.ToString();
+            string minutes = ChartFunctions.outsideData[0].Date.Minute.ToString();
+
+            series.Points.AddXY(chart[0].Date.Hour.ToString(), chart[0].Temperature);
+            foreach (var temp in chart)
+            {
+                hours = temp.Date.Hour.ToString();
+                minutes = temp.Date.Minute.ToString();
+
+                series.Points.AddXY($"{hours}:{minutes}", temp.Temperature);            
+            }          
+        }
+
         private void Dryness_Pnl_Paint(object sender, PaintEventArgs e)
         {
 
@@ -52,22 +99,19 @@ namespace WeatherAppUI
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-           
+
             DateTime date = dateTimePicker1.Value;
             ChartFunctions.GetWeatherData(date, date.AddDays(1));
-            if (outSide == true)
-            {
-                weatherDatasBindingSource.DataSource = ChartFunctions.outsideData;
-                chart1.DataBind();
-                
-            }
-            else
-            {
-                weatherDatasBindingSource.DataSource = ChartFunctions.insideData;
-                chart1.DataBind();
-                
-            }
+            Setchart();
 
+
+        }
+        private void Setchart()
+        {
+            if (outSide == true)
+                SplineChartTemperatures(ChartFunctions.outsideData);
+            else
+                SplineChartTemperatures(ChartFunctions.insideData);
         }
 
         private void OutDorr_Btn_Click(object sender, EventArgs e)
@@ -77,8 +121,8 @@ namespace WeatherAppUI
                 OutDorr_Btn.ForeColor = Color.Blue;
                 Indoors_Btn.ForeColor = Color.Black;
                 outSide = true;
-                weatherDatasBindingSource.DataSource = ChartFunctions.outsideData;
-                chart1.DataBind();
+                Setchart(); 
+               
             }
         }
 
@@ -89,12 +133,7 @@ namespace WeatherAppUI
                 Indoors_Btn.ForeColor = Color.Blue;
                 OutDorr_Btn.ForeColor = Color.Black;
                 outSide = false;
-                chart1.ChartAreas[0].AxisX.Minimum = 0;
-                chart1.ChartAreas[0].AxisX.Maximum = ChartFunctions.insideData.Count + 500;
-                
-                weatherDatasBindingSource.DataSource = ChartFunctions.insideData;
-                chart1.DataBind();
-
+                Setchart();      
             }
         }
 
@@ -163,7 +202,17 @@ namespace WeatherAppUI
 
         private void chart1_Click(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void autum_Lbl_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

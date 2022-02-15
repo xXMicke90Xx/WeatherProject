@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            this.panel1 = new System.Windows.Forms.Panel();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            this.Menu_Pnl = new System.Windows.Forms.Panel();
             this.Help_Btn = new System.Windows.Forms.Button();
             this.Indoors_Btn = new System.Windows.Forms.Button();
             this.OutDorr_Btn = new System.Windows.Forms.Button();
@@ -51,11 +51,15 @@
             this.ListBox_Btn = new System.Windows.Forms.Button();
             this.Top_Pnl = new System.Windows.Forms.Panel();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.weatherDBDataSet = new WeatherAppUI.WeatherDBDataSet();
             this.weatherDatasBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.weatherDBDataSet = new WeatherAppUI.WeatherDBDataSet();
             this.weatherDatasTableAdapter = new WeatherAppUI.WeatherDBDataSetTableAdapters.WeatherDatasTableAdapter();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.Autum_PBox = new System.Windows.Forms.PictureBox();
+            this.Winter_PBox = new System.Windows.Forms.PictureBox();
+            this.autum_Lbl = new System.Windows.Forms.Label();
+            this.Winter_Lbl = new System.Windows.Forms.Label();
+            this.Menu_Pnl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.List_Pnl.SuspendLayout();
@@ -63,22 +67,24 @@
             this.Temp_Sort_Pnl.SuspendLayout();
             this.Top_Pnl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.weatherDBDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.weatherDatasBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weatherDBDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Autum_PBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Winter_PBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel1
+            // Menu_Pnl
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(209)))), ((int)(((byte)(209)))));
-            this.panel1.Controls.Add(this.Help_Btn);
-            this.panel1.Controls.Add(this.Indoors_Btn);
-            this.panel1.Controls.Add(this.OutDorr_Btn);
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 877);
-            this.panel1.TabIndex = 0;
+            this.Menu_Pnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(209)))), ((int)(((byte)(209)))));
+            this.Menu_Pnl.Controls.Add(this.Help_Btn);
+            this.Menu_Pnl.Controls.Add(this.Indoors_Btn);
+            this.Menu_Pnl.Controls.Add(this.OutDorr_Btn);
+            this.Menu_Pnl.Controls.Add(this.pictureBox1);
+            this.Menu_Pnl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.Menu_Pnl.Location = new System.Drawing.Point(0, 0);
+            this.Menu_Pnl.Name = "Menu_Pnl";
+            this.Menu_Pnl.Size = new System.Drawing.Size(200, 877);
+            this.Menu_Pnl.TabIndex = 0;
             // 
             // Help_Btn
             // 
@@ -273,65 +279,105 @@
             // chart1
             // 
             this.chart1.BorderlineColor = System.Drawing.Color.Black;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            this.chart1.DataSource = this.weatherDatasBindingSource;
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Top;
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(459, 40);
             this.chart1.Name = "chart1";
-            series2.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Center;
-            series2.BorderColor = System.Drawing.Color.Black;
-            series2.BorderWidth = 5;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Color = System.Drawing.Color.Black;
-            series2.CustomProperties = "LabelStyle=Bottom, EmptyPointValue=Zero";
-            series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series2.LabelBackColor = System.Drawing.Color.White;
-            series2.LabelBorderWidth = 10;
-            series2.Legend = "Legend1";
-            series2.MarkerSize = 60;
-            series2.MarkerStep = 1440;
-            series2.Name = "Temperature";
-            series2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series2.ShadowColor = System.Drawing.Color.DimGray;
-            series2.XValueMember = "Date";
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series2.YValueMembers = "Temperature";
-            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            this.chart1.Series.Add(series2);
+            series3.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Center;
+            series3.BorderColor = System.Drawing.Color.Black;
+            series3.BorderWidth = 5;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.Color = System.Drawing.Color.Black;
+            series3.CustomProperties = "LabelStyle=Bottom, EmptyPointValue=Zero";
+            series3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series3.LabelBackColor = System.Drawing.Color.White;
+            series3.LabelBorderWidth = 10;
+            series3.Legend = "Legend1";
+            series3.MarkerSize = 1;
+            series3.Name = "Temperature";
+            series3.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
+            series3.ShadowColor = System.Drawing.Color.DimGray;
+            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series3.YValueMembers = "Temperature";
+            series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(1072, 405);
             this.chart1.TabIndex = 7;
             this.chart1.Text = "Temperature";
-            title2.Name = "Temperature Chart";
-            this.chart1.Titles.Add(title2);
+            title3.DockedToChartArea = "ChartArea1";
+            title3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title3.Name = "Temperature Chart";
+            this.chart1.Titles.Add(title3);
             this.chart1.Click += new System.EventHandler(this.chart1_Click);
-            // 
-            // weatherDBDataSet
-            // 
-            this.weatherDBDataSet.DataSetName = "WeatherDBDataSet";
-            this.weatherDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // weatherDatasBindingSource
             // 
             this.weatherDatasBindingSource.DataMember = "WeatherDatas";
             this.weatherDatasBindingSource.DataSource = this.weatherDBDataSet;
             // 
+            // weatherDBDataSet
+            // 
+            this.weatherDBDataSet.DataSetName = "WeatherDBDataSet";
+            this.weatherDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // weatherDatasTableAdapter
             // 
             this.weatherDatasTableAdapter.ClearBeforeFill = true;
             // 
-            // label1
+            // imageList1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(746, 552);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 31);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "label1";
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // Autum_PBox
+            // 
+            this.Autum_PBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.Autum_PBox.Image = ((System.Drawing.Image)(resources.GetObject("Autum_PBox.Image")));
+            this.Autum_PBox.Location = new System.Drawing.Point(459, 445);
+            this.Autum_PBox.Name = "Autum_PBox";
+            this.Autum_PBox.Size = new System.Drawing.Size(346, 432);
+            this.Autum_PBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Autum_PBox.TabIndex = 9;
+            this.Autum_PBox.TabStop = false;
+            // 
+            // Winter_PBox
+            // 
+            this.Winter_PBox.Dock = System.Windows.Forms.DockStyle.Right;
+            this.Winter_PBox.Image = ((System.Drawing.Image)(resources.GetObject("Winter_PBox.Image")));
+            this.Winter_PBox.Location = new System.Drawing.Point(1180, 445);
+            this.Winter_PBox.Name = "Winter_PBox";
+            this.Winter_PBox.Size = new System.Drawing.Size(351, 432);
+            this.Winter_PBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Winter_PBox.TabIndex = 10;
+            this.Winter_PBox.TabStop = false;
+            // 
+            // autum_Lbl
+            // 
+            this.autum_Lbl.AutoSize = true;
+            this.autum_Lbl.BackColor = System.Drawing.Color.Transparent;
+            this.autum_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.autum_Lbl.Location = new System.Drawing.Point(502, 463);
+            this.autum_Lbl.Name = "autum_Lbl";
+            this.autum_Lbl.Size = new System.Drawing.Size(273, 25);
+            this.autum_Lbl.TabIndex = 11;
+            this.autum_Lbl.Text = "Metriologiska Hösten Startade";
+            this.autum_Lbl.Click += new System.EventHandler(this.autum_Lbl_Click);
+            // 
+            // Winter_Lbl
+            // 
+            this.Winter_Lbl.AutoSize = true;
+            this.Winter_Lbl.BackColor = System.Drawing.Color.Transparent;
+            this.Winter_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Winter_Lbl.Location = new System.Drawing.Point(1227, 477);
+            this.Winter_Lbl.Name = "Winter_Lbl";
+            this.Winter_Lbl.Size = new System.Drawing.Size(273, 25);
+            this.Winter_Lbl.TabIndex = 12;
+            this.Winter_Lbl.Text = "Metriologiska Vintern Startade";
             // 
             // Form1
             // 
@@ -339,18 +385,21 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(186)))), ((int)(((byte)(187)))));
             this.ClientSize = new System.Drawing.Size(1531, 877);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.Winter_Lbl);
+            this.Controls.Add(this.autum_Lbl);
+            this.Controls.Add(this.Winter_PBox);
+            this.Controls.Add(this.Autum_PBox);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.Top_Pnl);
             this.Controls.Add(this.ListBox_Btn);
             this.Controls.Add(this.List_Pnl);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.Menu_Pnl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.panel1.ResumeLayout(false);
+            this.Menu_Pnl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.List_Pnl.ResumeLayout(false);
@@ -360,8 +409,10 @@
             this.Temp_Sort_Pnl.PerformLayout();
             this.Top_Pnl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.weatherDBDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.weatherDatasBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weatherDBDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Autum_PBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Winter_PBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -369,7 +420,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel Menu_Pnl;
         private System.Windows.Forms.Button Indoors_Btn;
         private System.Windows.Forms.Button OutDorr_Btn;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -389,7 +440,11 @@
         private WeatherDBDataSet weatherDBDataSet;
         private System.Windows.Forms.BindingSource weatherDatasBindingSource;
         private WeatherDBDataSetTableAdapters.WeatherDatasTableAdapter weatherDatasTableAdapter;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.PictureBox Autum_PBox;
+        private System.Windows.Forms.PictureBox Winter_PBox;
+        private System.Windows.Forms.Label autum_Lbl;
+        private System.Windows.Forms.Label Winter_Lbl;
     }
 }
 
