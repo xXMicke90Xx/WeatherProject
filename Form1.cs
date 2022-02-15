@@ -28,7 +28,7 @@ namespace WeatherAppUI
             InitializeComponent();
 
             List_Pnl.Visible = false;
-            Temp_ListBox_LBox.DataSource = calulations.WarmestDayToColdest("Ute").Result;
+            Temp_ListBox_LBox.DataSource = calulations.WarmestDayToColdestAsync("Ute").Result;
 
 
             List_Pnl.Visible = false;
@@ -79,8 +79,8 @@ namespace WeatherAppUI
                 chart1.ChartAreas[0].AxisY.Interval = 0.5f;
 
 
-            string hours = ChartFunctions.outsideData[0].Date.Hour.ToString();
-            string minutes = ChartFunctions.outsideData[0].Date.Minute.ToString();
+            string hours = chart[0].Date.Hour.ToString();
+            string minutes = chart[0].Date.Minute.ToString();
 
             series.Points.AddXY(chart[0].Date.Hour.ToString(), chart[0].Temperature);
             foreach (var temp in chart)
