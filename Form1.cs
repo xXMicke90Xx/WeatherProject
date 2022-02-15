@@ -34,7 +34,8 @@ namespace WeatherAppUI
             List_Pnl.Visible = false;
             OutDorr_Btn.ForeColor = Color.Blue;
             //DataFileRead.WriteToDatabase();
-
+            Mold_Lbl.Parent = Mold_PBox;
+            Mold_Lbl.Dock = DockStyle.Top;
             autum_Lbl.Parent = Autum_PBox;
             Winter_Lbl.Parent = Winter_PBox;
             autum_Lbl.Dock = DockStyle.Top;
@@ -51,7 +52,10 @@ namespace WeatherAppUI
             //End Chart Functions
 
         }
-
+        /// <summary>
+        /// Updaterar chartern med värden, baserat på en lista. listan som kommer in måste vara i rätt format dvs, innetempen eller ute tempen!
+        /// </summary>
+        /// <param name="chart"></param>
         
 
         private void SplineChartTemperatures(List<WeatherData> chart)
@@ -121,8 +125,9 @@ namespace WeatherAppUI
                 OutDorr_Btn.ForeColor = Color.Blue;
                 Indoors_Btn.ForeColor = Color.Black;
                 outSide = true;
-                Setchart(); 
-               
+                Setchart();
+                Temp_ListBox_LBox.DataSource = calulations.WarmestDayToColdestAsync("Ute").Result;
+
             }
         }
 
@@ -133,7 +138,8 @@ namespace WeatherAppUI
                 Indoors_Btn.ForeColor = Color.Blue;
                 OutDorr_Btn.ForeColor = Color.Black;
                 outSide = false;
-                Setchart();      
+                Setchart();
+                Temp_ListBox_LBox.DataSource = calulations.WarmestDayToColdestAsync("Inne").Result;
             }
         }
 

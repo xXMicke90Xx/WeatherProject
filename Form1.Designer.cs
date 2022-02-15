@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.Menu_Pnl = new System.Windows.Forms.Panel();
             this.Help_Btn = new System.Windows.Forms.Button();
             this.Indoors_Btn = new System.Windows.Forms.Button();
@@ -59,6 +59,8 @@
             this.Winter_PBox = new System.Windows.Forms.PictureBox();
             this.autum_Lbl = new System.Windows.Forms.Label();
             this.Winter_Lbl = new System.Windows.Forms.Label();
+            this.Mold_PBox = new System.Windows.Forms.PictureBox();
+            this.Mold_Lbl = new System.Windows.Forms.Label();
             this.Menu_Pnl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -71,6 +73,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.weatherDBDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Autum_PBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Winter_PBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Mold_PBox)).BeginInit();
             this.SuspendLayout();
             // 
             // Menu_Pnl
@@ -279,39 +282,39 @@
             // chart1
             // 
             this.chart1.BorderlineColor = System.Drawing.Color.Black;
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Top;
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(459, 40);
             this.chart1.Name = "chart1";
-            series3.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Center;
-            series3.BorderColor = System.Drawing.Color.Black;
-            series3.BorderWidth = 5;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series3.Color = System.Drawing.Color.Black;
-            series3.CustomProperties = "LabelStyle=Bottom, EmptyPointValue=Zero";
-            series3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series3.LabelBackColor = System.Drawing.Color.White;
-            series3.LabelBorderWidth = 10;
-            series3.Legend = "Legend1";
-            series3.MarkerSize = 1;
-            series3.Name = "Temperature";
-            series3.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series3.ShadowColor = System.Drawing.Color.DimGray;
-            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series3.YValueMembers = "Temperature";
-            series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            this.chart1.Series.Add(series3);
+            series1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Center;
+            series1.BorderColor = System.Drawing.Color.Black;
+            series1.BorderWidth = 5;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Color = System.Drawing.Color.Black;
+            series1.CustomProperties = "LabelStyle=Bottom, EmptyPointValue=Zero";
+            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series1.LabelBackColor = System.Drawing.Color.White;
+            series1.LabelBorderWidth = 10;
+            series1.Legend = "Legend1";
+            series1.MarkerSize = 1;
+            series1.Name = "Temperature";
+            series1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
+            series1.ShadowColor = System.Drawing.Color.DimGray;
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series1.YValueMembers = "Temperature";
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(1072, 405);
             this.chart1.TabIndex = 7;
             this.chart1.Text = "Temperature";
-            title3.DockedToChartArea = "ChartArea1";
-            title3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title3.Name = "Temperature Chart";
-            this.chart1.Titles.Add(title3);
+            title1.DockedToChartArea = "ChartArea1";
+            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title1.Name = "Temperature Chart";
+            this.chart1.Titles.Add(title1);
             this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // weatherDatasBindingSource
@@ -373,11 +376,33 @@
             this.Winter_Lbl.AutoSize = true;
             this.Winter_Lbl.BackColor = System.Drawing.Color.Transparent;
             this.Winter_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Winter_Lbl.Location = new System.Drawing.Point(1227, 477);
+            this.Winter_Lbl.Location = new System.Drawing.Point(1229, 463);
             this.Winter_Lbl.Name = "Winter_Lbl";
             this.Winter_Lbl.Size = new System.Drawing.Size(273, 25);
             this.Winter_Lbl.TabIndex = 12;
             this.Winter_Lbl.Text = "Metriologiska Vintern Startade";
+            // 
+            // Mold_PBox
+            // 
+            this.Mold_PBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Mold_PBox.Image = ((System.Drawing.Image)(resources.GetObject("Mold_PBox.Image")));
+            this.Mold_PBox.Location = new System.Drawing.Point(805, 445);
+            this.Mold_PBox.Name = "Mold_PBox";
+            this.Mold_PBox.Size = new System.Drawing.Size(375, 432);
+            this.Mold_PBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Mold_PBox.TabIndex = 13;
+            this.Mold_PBox.TabStop = false;
+            // 
+            // Mold_Lbl
+            // 
+            this.Mold_Lbl.AutoSize = true;
+            this.Mold_Lbl.BackColor = System.Drawing.Color.Transparent;
+            this.Mold_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Mold_Lbl.Location = new System.Drawing.Point(855, 463);
+            this.Mold_Lbl.Name = "Mold_Lbl";
+            this.Mold_Lbl.Size = new System.Drawing.Size(147, 25);
+            this.Mold_Lbl.TabIndex = 14;
+            this.Mold_Lbl.Text = "MögelRisken = ";
             // 
             // Form1
             // 
@@ -385,6 +410,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(186)))), ((int)(((byte)(187)))));
             this.ClientSize = new System.Drawing.Size(1531, 877);
+            this.Controls.Add(this.Mold_Lbl);
+            this.Controls.Add(this.Mold_PBox);
             this.Controls.Add(this.Winter_Lbl);
             this.Controls.Add(this.autum_Lbl);
             this.Controls.Add(this.Winter_PBox);
@@ -413,6 +440,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.weatherDBDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Autum_PBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Winter_PBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Mold_PBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -445,6 +473,8 @@
         private System.Windows.Forms.PictureBox Winter_PBox;
         private System.Windows.Forms.Label autum_Lbl;
         private System.Windows.Forms.Label Winter_Lbl;
+        private System.Windows.Forms.PictureBox Mold_PBox;
+        private System.Windows.Forms.Label Mold_Lbl;
     }
 }
 
