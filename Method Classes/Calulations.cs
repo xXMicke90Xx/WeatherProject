@@ -76,7 +76,7 @@ namespace WeatherAppUI.Method_Classes
         /// Metod för att beräkna när hösten inföll på testdatan
         /// </summary>
         /// <returns></returns>
-        public async Task<List<string>> MeteorologicalAutumnCalcAsync()
+        public async Task<string> MeteorologicalAutumnCalcAsync()
         {
             //Den meteorologiska definitionen av höst är att dygnsmedeltemperaturen ska vara
             //sjunkande och lägre än 10,0 plusgrader men högre än 0,0°, på mindre data räcker det med lägre än 10 i fem dygn
@@ -90,9 +90,9 @@ namespace WeatherAppUI.Method_Classes
                 var result = averageTempQuery.OrderByDescending(x => x.Date.Month).ThenByDescending(x => x.Date.Day).ThenBy(x => x.AverageTemp).ToList();
                 var result2 = result.Skip(Math.Max(0, result.Count - 5));
 
-                List<string> output = result2.Select(x => String.Format("Månad:{0},Dag{1} | Genomsnittlig Temperatur {2}", x.Date.Month, x.Date.Day, Math.Round(x.AverageTemp, 1))).ToList();
+                List<string> output = result2.Select(x => String.Format("{1}/{0}", x.Date.Month, x.Date.Day)).ToList();
                 output.Reverse();
-                return await Task.FromResult(output);
+                return await Task.FromResult(output[0]);
             }
         }
         /// <summary>
@@ -100,7 +100,7 @@ namespace WeatherAppUI.Method_Classes
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task<List<string>> MeteorologicalWinterCalcAsync()
+        public async Task<string> MeteorologicalWinterCalcAsync()
         {
             using (var context = new WeatherContext())
             {
@@ -109,10 +109,10 @@ namespace WeatherAppUI.Method_Classes
                    .Select(c => new { Date = c.Key, AverageTemp = c.Average(y => y.Temperature) }).OrderBy(c => c.AverageTemp)
                    .Where(c => c.AverageTemp <= 0)
                    .ToList();
-                List<string> result = averageTempQuery.Select(x => String.Format("Månad:{0}:Dag{1} | Temperatur {2}", x.Date.Month, x.Date.Day, Math.Round(x.AverageTemp, 1))).ToList();
+                List<string> result = averageTempQuery.Select(x => String.Format("{1}/{0}", x.Date.Month, x.Date.Day)).ToList();
                 string message = "Det saknas ett dygn för att meteorologisk vinter skall kunna uppstå";
                 result.Add(message);
-                return await Task.FromResult(result);
+                return await Task.FromResult(result[0]);
             }
         }
     }

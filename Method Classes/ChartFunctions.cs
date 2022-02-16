@@ -24,9 +24,9 @@ namespace WeatherAppUI.Method_Classes
             using (var c = new WeatherContext())
             {
                 
-                outsideData = c.WeatherDatas.Where(x => x.Date > startDate && x.Date < endDate && x.Placement.ToLower() == "ute").ToList();
+                outsideData = c.WeatherDatas.Where(x => x.Date > startDate && x.Date < endDate && x.Placement.ToLower() == "ute").Distinct().ToList();
 
-                insideData = c.WeatherDatas.Where(x => x.Date > startDate && x.Date < endDate && x.Placement.ToLower() == "inne").ToList();
+                insideData = c.WeatherDatas.Where(x => x.Date > startDate && x.Date < endDate && x.Placement.ToLower() == "inne").Distinct().ToList();
             }
 
             return data;
