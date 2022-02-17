@@ -60,15 +60,26 @@ namespace WeatherAppUI.Method_Classes
         /// <param name="day"></param>
         /// <param name="placement"></param>
         /// <returns></returns>
-        public async Task<List<string>> AvgHumidityPerDayAsync(int month, int day, string placement)
+        public async Task<float> AvgHumidityPerDayAsync(DateTime date, string placement)
         {
             using (var context = new WeatherContext())
             {
-                var averageHumidityQuery = context.WeatherDatas.Where(c => c.Placement.Contains(placement) && c.Date.Month == month && c.Date.Day == day)
-                .GroupBy(c => new { c.Date.Month, c.Date.Day })
-                .Select(c => new { Date = c.Key, AverageMoist = c.Average(y => y.MoistLevel) }).OrderByDescending(c => c.AverageMoist)
-                .ToList();
-                List<string> result = averageHumidityQuery.Select(x => String.Format("Månad:{0},Dag{1} | Luftfuktighet {2} %", x.Date.Month, x.Date.Day, Math.Round(x.AverageMoist, 2))).ToList();
+                float result = (float)Math.Round(context.WeatherDatas.Where(y => y.Date.Month == date.Month && y.Date.Day == date.Day && y.Placement.ToLower() == placement.ToLower()).Average(x => x.MoistLevel), 1);
+                return await Task.FromResult(result);
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        /// <param name="placement"></param>
+        /// <returns></returns>
+        public async Task<float> AvgtemperaturePerDayAsync(DateTime date, string placement)
+        {
+            using (var context = new WeatherContext())
+            {
+                float result = (float)Math.Round(context.WeatherDatas.Where(y => y.Date.Month == date.Month && y.Date.Day == date.Day && y.Placement.ToLower() == placement.ToLower()).Average(x => x.Temperature), 1);
                 return await Task.FromResult(result);
             }
         }

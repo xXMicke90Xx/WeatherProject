@@ -24,7 +24,8 @@ namespace WeatherAppUI
             List_Pnl.Visible = false;
             Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
             Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
-
+            AvgTemp_Lbl.Text += queryMethods.AvgtemperaturePerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result;
+            Avg_Humidity_Lbl.Text += queryMethods.AvgHumidityPerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result+"%";
             //Dryness_LBox.DataSource = calulations.AvgHumidityPerDayAsync(10, 01, "Ute").Result;
 
 
@@ -81,7 +82,7 @@ namespace WeatherAppUI
 
         void DoorOpen()
         {
-            Dryness_LBox.Items.Clear();
+            //Dryness_LBox.Items.Clear();
             if (ChartFunctions.outsideData.Count == 0 || ChartFunctions.insideData.Count == 0) return;
 
             double[] outsideTemps = AvgPerQuarter(ChartFunctions.outsideData);
@@ -92,7 +93,7 @@ namespace WeatherAppUI
 
                 if (outsideTemps[i] < outsideTemps[i + 1] && insideTemps[i] > insideTemps[i + 1]) //TODO: Fixa bättre kalkyl!
                 {
-                    Dryness_LBox.Items.Add($"{outsideTemps[i]}/{outsideTemps[i + 1]}  {String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15))}=>{String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15 + 30))}   {insideTemps[i]}/{insideTemps[i + 1]}");
+                    //Dryness_LBox.Items.Add($"{outsideTemps[i]}/{outsideTemps[i + 1]}  {String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15))}=>{String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15 + 30))}   {insideTemps[i]}/{insideTemps[i + 1]}");
                 }
 
             }
@@ -151,8 +152,6 @@ namespace WeatherAppUI
             {
                 if (temp != null)
                     series.Points.AddXY($"{String.Format("{0:t}", temp.Date)}", temp.Temperature);
-
-
             }
 
         }
@@ -169,8 +168,22 @@ namespace WeatherAppUI
             ChartFunctions.GetWeatherData(date, date.AddDays(1));
             Setchart();
             DoorOpen();
+            TempAndHumidityLabels(date);
 
 
+        }
+        void TempAndHumidityLabels(DateTime date)
+        {
+            if (outSide == true)
+            {
+                AvgTemp_Lbl.Text = "Average Temp: " + queryMethods.AvgtemperaturePerDayAsync(date, "Ute").Result;
+                Avg_Humidity_Lbl.Text = "Average Humidity: " + queryMethods.AvgHumidityPerDayAsync(date, "Ute").Result+"%";
+            }
+            else
+            {
+                AvgTemp_Lbl.Text = "Average Temp: " + queryMethods.AvgtemperaturePerDayAsync(date, "Inne").Result;
+                Avg_Humidity_Lbl.Text = "Average Humidity: " + queryMethods.AvgHumidityPerDayAsync(date, "Inne").Result + "%";
+            }
         }
         private void Setchart()
         {
@@ -187,6 +200,7 @@ namespace WeatherAppUI
             outSide = true;
             Setchart();
             SetListBoxItems();
+            TempAndHumidityLabels(dateTimePicker1.Value);
 
 
 
@@ -199,7 +213,7 @@ namespace WeatherAppUI
             outSide = false;
             Setchart();
             SetListBoxItems();
-
+            TempAndHumidityLabels(dateTimePicker1.Value);
 
         }
         void SetListBoxItems()
