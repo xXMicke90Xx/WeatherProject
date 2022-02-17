@@ -144,11 +144,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Method Classes\Calulations.cs" />
     <Compile Include="Method Classes\ChartFunctions.cs" />
     <Compile Include="Method Classes\DataFileRead.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Method Classes\QueryMethods.cs" />
     <Compile Include="WeatherDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

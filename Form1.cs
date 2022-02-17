@@ -15,14 +15,14 @@ namespace WeatherAppUI
         bool isDown = false; // Musfunktion, för att kunna dra runt rutan
         Point lastLocation; // Till för samma som ovan
         bool outSide = true;// Håller Koll på vilken knapp som är aktiv mellan inne/ute
-        Calulations calulations = new Calulations();
+        QueryMethods queryMethods = new QueryMethods();
 
         public Form1()
         {
             InitializeComponent();
 
             List_Pnl.Visible = false;
-            Temp_ListBox_LBox.DataSource = calulations.WarmestDayToColdestAsync("Ute").Result;
+            Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
             //Dryness_LBox.DataSource = calulations.AvgHumidityPerDayAsync(10, 01, "Ute").Result;
 
 
@@ -34,11 +34,11 @@ namespace WeatherAppUI
 
             autum_Lbl.Parent = Autum_PBox;
             autum_Lbl.Dock = DockStyle.Top;
-            autum_Lbl.Text += " " + calulations.MeteorologicalAutumnCalcAsync().Result;
+            autum_Lbl.Text += " " + queryMethods.MeteorologicalAutumnCalcAsync().Result;
 
             Winter_Lbl.Dock = DockStyle.Top;
             Winter_Lbl.Parent = Winter_PBox;
-            Winter_Lbl.Text += " " + calulations.MeteorologicalWinterCalcAsync().Result;
+            Winter_Lbl.Text += " " + queryMethods.MeteorologicalWinterCalcAsync().Result;
             //ChartFunctions
 
             this.chart1.Titles.Add("Temperature");
@@ -166,7 +166,6 @@ namespace WeatherAppUI
             DateTime date = dateTimePicker1.Value;
             ChartFunctions.GetWeatherData(date, date.AddDays(1));
             Setchart();
-
             DoorOpen();
 
 
@@ -185,7 +184,7 @@ namespace WeatherAppUI
             ButtonColor();
             outSide = true;
             Setchart();
-
+            SetListBoxItems();
 
 
 
@@ -197,9 +196,22 @@ namespace WeatherAppUI
             ButtonColor();
             outSide = false;
             Setchart();
+            SetListBoxItems();
 
-
-
+               
+        }
+        void SetListBoxItems()
+        {
+            if (outSide)
+            {
+                Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
+                Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
+            }
+            else
+            {
+                Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Inne").Result;
+                Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Inne").Result;
+            }
         }
 
         /// <summary>

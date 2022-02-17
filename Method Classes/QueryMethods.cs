@@ -8,7 +8,7 @@ using WeatherAppUI;
 
 namespace WeatherAppUI.Method_Classes
 {
-    public class Calulations
+    public class QueryMethods
     {
         /// <summary>
         /// In parametrar är månad,dag samt plats inne || ute.
@@ -114,6 +114,26 @@ namespace WeatherAppUI.Method_Classes
                 result.Add(message);
                 return await Task.FromResult(result[0]);
             }
+        }
+        /// <summary>
+        /// Metod för att hämta in hela datamängden och beräkna 
+        /// luftfuktighten per dag,baserat på plats.
+        /// placement kan då vara "Ute" | "Inne"
+        /// </summary>
+        /// <param name="placement"></param>
+        /// <returns></returns>
+        public async Task<List<string>> AvgHumidityOnTheWholeDataAsync(string placement)
+        {
+            using (var context = new WeatherContext())
+            {
+                var averageHumidityQuery = context.WeatherDatas.Where(c => c.Placement.Contains(placement))
+                .GroupBy(c => new { c.Date.Month, c.Date.Day })
+                .Select(c => new { Date = c.Key, AverageMoist = c.Average(y => y.MoistLevel) }).OrderByDescending(c => c.AverageMoist)
+                .ToList();
+                List<string> result = averageHumidityQuery.Select(x => String.Format("Månad:{0}:Dag{1} | Luftfuktighet {2} %", x.Date.Month, x.Date.Day, Math.Round(x.AverageMoist, 2))).ToList();
+                return await Task.FromResult(result);
+            }
+
         }
     }
 }
