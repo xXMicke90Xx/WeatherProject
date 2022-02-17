@@ -24,7 +24,7 @@ namespace WeatherAppUI
             List_Pnl.Visible = false;
             Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
             Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
-            AvgTemp_Lbl.Text += queryMethods.AvgtemperaturePerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result;
+            AvgTemp_Lbl.Text += queryMethods.AvgtemperaturePerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result+ "°C";
             Avg_Humidity_Lbl.Text += queryMethods.AvgHumidityPerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result+"%";
             //Dryness_LBox.DataSource = calulations.AvgHumidityPerDayAsync(10, 01, "Ute").Result;
 
@@ -176,12 +176,12 @@ namespace WeatherAppUI
         {
             if (outSide == true)
             {
-                AvgTemp_Lbl.Text = "Average Temp: " + queryMethods.AvgtemperaturePerDayAsync(date, "Ute").Result;
+                AvgTemp_Lbl.Text = "Average Temp: " + queryMethods.AvgtemperaturePerDayAsync(date, "Ute").Result+ "°C";
                 Avg_Humidity_Lbl.Text = "Average Humidity: " + queryMethods.AvgHumidityPerDayAsync(date, "Ute").Result+"%";
             }
             else
             {
-                AvgTemp_Lbl.Text = "Average Temp: " + queryMethods.AvgtemperaturePerDayAsync(date, "Inne").Result;
+                AvgTemp_Lbl.Text = "Average Temp: " + queryMethods.AvgtemperaturePerDayAsync(date, "Inne").Result+ "°C";
                 Avg_Humidity_Lbl.Text = "Average Humidity: " + queryMethods.AvgHumidityPerDayAsync(date, "Inne").Result + "%";
             }
         }
