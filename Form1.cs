@@ -49,76 +49,70 @@ namespace WeatherAppUI
             //End Chart Functions
             DoorOpen();
         }
-
+        
         void DoorOpen()
         {
-            Dryness_LBox.Items.Clear();
+            
             List<WeatherData> outsideList = CleaningList(ChartFunctions.outsideData);
             List<WeatherData> insideList = CleaningList(ChartFunctions.insideData);
-            List<float> outAvg = new List<float>();
-            List<float> inAvg = new List<float>();
-            DateTime time = outsideList[0].Date;
-            double avgTemp = 0;
-            int points = 0;
-            double[] outsideTemps = new double[100];
-            double[] insideTemps = new double[100];
-            int count = 0;
+            if (outsideList == null || insideList == null || outsideList.Count == 0 || insideList.Count == 0) return;
+            
+                Dryness_LBox.Items.Clear();
+                List<float> outAvg = new List<float>();
+                List<float> inAvg = new List<float>();
+                DateTime time = outsideList[0].Date;
+                double avgTemp = 0;
+                int points = 0;
+                double[] outsideTemps = new double[96];
+                double[] insideTemps = new double[96];
+                int count = 0;
 
-            for (int i = 0; i < outsideList.Count; i++)
-            {
-                if (time.AddMinutes(15) > outsideList[i].Date)
+                for (int i = 0; i < outsideList.Count; i++)
                 {
-                    avgTemp += outsideList[i].Temperature;
-                    points++;
-                }
-                if (time.AddMinutes(15) <= outsideList[i].Date)
-                {
-                    outsideTemps[count] = Math.Round(avgTemp / points, 1);
-                    count++;
-                    points = 0;
-                    avgTemp = 0;
-                    time = outsideList[i].Date;
-                }
-            }
-            avgTemp = 0;
-            time = insideList[0].Date;
-            count = 0;
-            points = 0;
-            for (int i = 0; i < insideList.Count; i++)
-            {
-                if (time.AddMinutes(15) > insideList[i].Date)
-                {
-                    avgTemp += insideList[i].Temperature;
-                    points++;
-                }
-                if (time.AddMinutes(15) <= insideList[i].Date)
-                {
-                    insideTemps[count] = Math.Round(avgTemp / points, 1);
-                    count++;
-                    points = 0;
-                    avgTemp = 0;
-                    time = insideList[i].Date;
-                }
-            }
-
-            for (int i = 0; i < insideTemps.Length - 1; i++)
-            {
-               
-                    if (outsideTemps[i] < outsideTemps[i + 1] && insideTemps[i] > insideTemps[i + 1] )
+                    if (time.AddMinutes(15) > outsideList[i].Date)
                     {
-                        Dryness_LBox.Items.Add($"{outsideTemps[i]}/{outsideTemps[i+1]}  {String.Format("{0:t}",ChartFunctions.insideData[0].Date.AddMinutes(i*15))}=>{String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i*15+15))}   {insideTemps[i]}/{insideTemps[i+1]}");
+                        avgTemp += outsideList[i].Temperature;
+                        points++;
                     }
-                
-            }
+                    if (time.AddMinutes(15) <= outsideList[i].Date)
+                    {
+                        outsideTemps[count] = Math.Round(avgTemp / points, 1);
+                        count++;
+                        points = 0;
+                        avgTemp = 0;
+                        time = outsideList[i].Date;
+                    }
+                }
+                avgTemp = 0;
+                time = insideList[0].Date;
+                count = 0;
+                points = 0;
+                for (int i = 0; i < insideList.Count; i++)
+                {
+                    if (time.AddMinutes(15) > insideList[i].Date)
+                    {
+                        avgTemp += insideList[i].Temperature;
+                        points++;
+                    }
+                    if (time.AddMinutes(15) <= insideList[i].Date)
+                    {
+                        insideTemps[count] = Math.Round(avgTemp / points, 1);
+                        count++;
+                        points = 0;
+                        avgTemp = 0;
+                        time = insideList[i].Date;
+                    }
+                }
 
-            //for (int i = 0; i < ChartFunctions.insideData.Count; i++)
-            //{
+                for (int i = 0; i < insideTemps.Length - 1; i++)
+                {
 
-            //}
+                    if (outsideTemps[i] < outsideTemps[i + 1] && insideTemps[i] > insideTemps[i + 1])
+                    {
+                        Dryness_LBox.Items.Add($"{outsideTemps[i]}/{outsideTemps[i + 1]}  {String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15))}=>{String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15 + 30))}   {insideTemps[i]}/{insideTemps[i + 1]}");
+                    }
 
-
-
-
+                }            
         }
 
         List<WeatherData> CleaningList(List<WeatherData> data)
@@ -177,16 +171,7 @@ namespace WeatherAppUI
 
 
             }
-            for (int i = 0; i < chart.Count - 1; i++)
-            {
-                if (chart[i].Date == chart[i + 1].Date && chart[i].Temperature == chart[i + 1].Temperature && chart[i].Placement == chart[i + 1].Placement && chart[i].MoistLevel == chart[i + 1].MoistLevel)
-                {
-                    Dryness_LBox.Items.Add(chart[i].Date + " " + chart[i].Temperature);
-                }
-
-            }
-
-
+            
         }
 
         private void Dryness_Pnl_Paint(object sender, PaintEventArgs e)
@@ -200,7 +185,7 @@ namespace WeatherAppUI
             DateTime date = dateTimePicker1.Value;
             ChartFunctions.GetWeatherData(date, date.AddDays(1));
             Setchart();
-            PopulateListboxes();
+            
             DoorOpen();
 
 
@@ -219,7 +204,7 @@ namespace WeatherAppUI
             ButtonColor();
             outSide = true;
             Setchart();
-            PopulateListboxes();
+            
 
 
 
@@ -231,7 +216,7 @@ namespace WeatherAppUI
             ButtonColor();
             outSide = false;
             Setchart();
-            PopulateListboxes();
+            
 
 
         }
@@ -255,19 +240,7 @@ namespace WeatherAppUI
         /// <summary>
         /// Sätter Listan för temperaturer, viktigt att tänka på är boolvärdet "outSide" måste vara satt innan man tillkallar denna metod!
         /// </summary>
-        void PopulateListboxes()
-        {
-            if (outSide == true)
-            {
-                Temp_ListBox_LBox.DataSource = calulations.WarmestDayToColdestAsync("Ute").Result;
-                //Dryness_LBox.DataSource = calulations.AvgHumidityPerDayAsync(dateTimePicker1.Value.Month, dateTimePicker1.Value.Day, "Ute").Result;
-            }
-            else
-            {
-                Temp_ListBox_LBox.DataSource = calulations.WarmestDayToColdestAsync("Inne").Result;
-                //Dryness_LBox.DataSource = calulations.AvgHumidityPerDayAsync(dateTimePicker1.Value.Month, dateTimePicker1.Value.Day, "Inne").Result;
-            }
-        }
+        
 
         private void Help_Btn_Click(object sender, EventArgs e)
         {
