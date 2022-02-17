@@ -49,70 +49,51 @@ namespace WeatherAppUI
             //End Chart Functions
             DoorOpen();
         }
-        
+        double[] AvgPerQuarter(List<WeatherData> data)
+        {
+            DateTime time = data[0].Date;
+            double avgTemp = 0;
+            int points = 0;
+            int count = 0;
+            double[] tempsPerQuarter = new double[96]; //96 är pga att det alltid para finns 96 kvartar på ett dygn, kommer aldrig att ändras!
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                if (time.AddMinutes(15) > data[i].Date)
+                {
+                    avgTemp += data[i].Temperature;
+                    points++;
+                }
+                if (time.AddMinutes(15) <= data[i].Date)
+                {
+                    tempsPerQuarter[count] = Math.Round(avgTemp / points, 1);
+                    count++;
+                    points = 0;
+                    avgTemp = 0;
+                    time = data[i].Date;
+                }
+            }
+
+            return tempsPerQuarter;
+        }
+
         void DoorOpen()
         {
+            Dryness_LBox.Items.Clear();
+            if (ChartFunctions.outsideData.Count == 0 || ChartFunctions.insideData.Count == 0) return;
             
-            List<WeatherData> outsideList = CleaningList(ChartFunctions.outsideData);
-            List<WeatherData> insideList = CleaningList(ChartFunctions.insideData);
-            if (outsideList == null || insideList == null || outsideList.Count == 0 || insideList.Count == 0) return;
+            double[] outsideTemps = AvgPerQuarter(ChartFunctions.outsideData);
+            double[] insideTemps = AvgPerQuarter(ChartFunctions.insideData);
             
-                Dryness_LBox.Items.Clear();
-                List<float> outAvg = new List<float>();
-                List<float> inAvg = new List<float>();
-                DateTime time = outsideList[0].Date;
-                double avgTemp = 0;
-                int points = 0;
-                double[] outsideTemps = new double[96];
-                double[] insideTemps = new double[96];
-                int count = 0;
+            for (int i = 0; i < insideTemps.Length - 1; i++)
+            {
 
-                for (int i = 0; i < outsideList.Count; i++)
+                if (outsideTemps[i] < outsideTemps[i + 1] && insideTemps[i] > insideTemps[i + 1])
                 {
-                    if (time.AddMinutes(15) > outsideList[i].Date)
-                    {
-                        avgTemp += outsideList[i].Temperature;
-                        points++;
-                    }
-                    if (time.AddMinutes(15) <= outsideList[i].Date)
-                    {
-                        outsideTemps[count] = Math.Round(avgTemp / points, 1);
-                        count++;
-                        points = 0;
-                        avgTemp = 0;
-                        time = outsideList[i].Date;
-                    }
-                }
-                avgTemp = 0;
-                time = insideList[0].Date;
-                count = 0;
-                points = 0;
-                for (int i = 0; i < insideList.Count; i++)
-                {
-                    if (time.AddMinutes(15) > insideList[i].Date)
-                    {
-                        avgTemp += insideList[i].Temperature;
-                        points++;
-                    }
-                    if (time.AddMinutes(15) <= insideList[i].Date)
-                    {
-                        insideTemps[count] = Math.Round(avgTemp / points, 1);
-                        count++;
-                        points = 0;
-                        avgTemp = 0;
-                        time = insideList[i].Date;
-                    }
+                    Dryness_LBox.Items.Add($"{outsideTemps[i]}/{outsideTemps[i + 1]}  {String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15))}=>{String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15 + 30))}   {insideTemps[i]}/{insideTemps[i + 1]}");
                 }
 
-                for (int i = 0; i < insideTemps.Length - 1; i++)
-                {
-
-                    if (outsideTemps[i] < outsideTemps[i + 1] && insideTemps[i] > insideTemps[i + 1])
-                    {
-                        Dryness_LBox.Items.Add($"{outsideTemps[i]}/{outsideTemps[i + 1]}  {String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15))}=>{String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15 + 30))}   {insideTemps[i]}/{insideTemps[i + 1]}");
-                    }
-
-                }            
+            }
         }
 
         List<WeatherData> CleaningList(List<WeatherData> data)
@@ -171,7 +152,7 @@ namespace WeatherAppUI
 
 
             }
-            
+
         }
 
         private void Dryness_Pnl_Paint(object sender, PaintEventArgs e)
@@ -185,7 +166,7 @@ namespace WeatherAppUI
             DateTime date = dateTimePicker1.Value;
             ChartFunctions.GetWeatherData(date, date.AddDays(1));
             Setchart();
-            
+
             DoorOpen();
 
 
@@ -204,7 +185,7 @@ namespace WeatherAppUI
             ButtonColor();
             outSide = true;
             Setchart();
-            
+
 
 
 
@@ -216,7 +197,7 @@ namespace WeatherAppUI
             ButtonColor();
             outSide = false;
             Setchart();
-            
+
 
 
         }
@@ -240,7 +221,7 @@ namespace WeatherAppUI
         /// <summary>
         /// Sätter Listan för temperaturer, viktigt att tänka på är boolvärdet "outSide" måste vara satt innan man tillkallar denna metod!
         /// </summary>
-        
+
 
         private void Help_Btn_Click(object sender, EventArgs e)
         {
