@@ -23,6 +23,8 @@ namespace WeatherAppUI
 
             List_Pnl.Visible = false;
             Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
+            Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
+
             //Dryness_LBox.DataSource = calulations.AvgHumidityPerDayAsync(10, 01, "Ute").Result;
 
 
@@ -81,10 +83,10 @@ namespace WeatherAppUI
         {
             Dryness_LBox.Items.Clear();
             if (ChartFunctions.outsideData.Count == 0 || ChartFunctions.insideData.Count == 0) return;
-            
+
             double[] outsideTemps = AvgPerQuarter(ChartFunctions.outsideData);
             double[] insideTemps = AvgPerQuarter(ChartFunctions.insideData);
-            
+
             for (int i = 0; i < insideTemps.Length - 1; i++)
             {
 
@@ -198,7 +200,7 @@ namespace WeatherAppUI
             Setchart();
             SetListBoxItems();
 
-               
+
         }
         void SetListBoxItems()
         {
