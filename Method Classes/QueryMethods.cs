@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WeatherDataLib;
 using WeatherAppUI;
+using System.Collections;
 
 namespace WeatherAppUI.Method_Classes
 {
@@ -145,6 +146,96 @@ namespace WeatherAppUI.Method_Classes
                 return await Task.FromResult(result);
             }
 
+        }
+        /// <summary>
+        /// Kör en query för att filtrera utedata på luftfuktighet temp,datum
+        /// Hänger ihop med RunMoldCalcAndFilterAsync
+        /// </summary>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        /// <returns></returns>
+        public async Task<List<dynamic>> MoldIndexQueryAsync(int month, int day)
+        {
+            using (var context = new WeatherContext())
+            {
+                var mold = context.WeatherDatas.Where(c => c.MoistLevel > 70 && c.Placement.Contains("Ute") && c.Temperature >= 0 && c.Date.Month == month && c.Date.Day == day)
+                    .GroupBy(c => new { c.Date.Month, c.MoistLevel })
+                    .Select(c => new { Moist = c.Key, AverageTemp = c.Average(y => y.Temperature), }).OrderByDescending(c => c.AverageTemp)
+                    .ToList();
+                List<dynamic> result = mold.ToList<dynamic>();
+                return await Task.FromResult(result);
+            }
+        }
+        /// <summary>
+        /// Här körs resultatet ifrån MoldIndexQueryAsync
+        /// och kollar av risken 
+        /// Den i sin tur retunerar ett hashtable 
+        /// </summary>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        /// <returns></returns>
+        public async Task<Hashtable> RunMoldCalcAndFilterAsync(int month, int day)
+        {
+            Hashtable riskAssesement = new Hashtable();
+            var run = MoldIndexQueryAsync(month, day);
+            var result = run.Result;
+            foreach (var item in result)
+            {
+                if (item.Moist.MoistLevel > 70 && item.Moist.MoistLevel < 75 && item.AverageTemp <= 18)
+                {
+                    int risk0 = 0;
+                    riskAssesement.Add(item, risk0);
+
+                }
+                else if (item.Moist.MoistLevel > 75 && item.Moist.MoistLevel < 80 && item.AverageTemp <= 30)
+                {
+                    int risk1 = 1;
+                    riskAssesement.Add(item, risk1);
+                }
+                else if (item.Moist.MoistLevel > 80 && item.Moist.MoistLevel < 85 && item.AverageTemp <= 30)
+                {
+                    int risk2 = 2;
+                    riskAssesement.Add(item, risk2);
+                }
+                else if (item.Moist.MoistLevel > 85 && item.Moist.MoistLevel < 90 && item.AverageTemp <= 30)
+                {
+                    int risk3 = 3;
+                    riskAssesement.Add(item, risk3);
+                }
+                else if (item.Moist.MoistLevel > 90 && item.Moist.MoistLevel < 95 && item.AverageTemp <= 30)
+                {
+                    int risk4 = 4;
+                    riskAssesement.Add(item, risk4);
+                }
+                else if (item.Moist.MoistLevel > 95 && item.Moist.MoistLevel <= 100 && item.AverageTemp <= 30)
+                {
+                    int risk5 = 5;
+                    riskAssesement.Add(item, risk5);
+
+                }
+            }
+            return await Task.FromResult(riskAssesement);
+        }
+        /// <summary>
+        /// Här får vi in ett hashtable, Går igenom den och binder riskvärdet till
+        /// en sträng. Redo att presenteras för användaren på valt datum
+        /// Denna metoden kopplas till vad änvändaren gör för val på
+        /// månad och dag.
+        /// </summary>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        /// <returns></returns>
+        public async Task<string> MoldRiskAndDateResultAsync(int month, int day)
+        {
+            var run = RunMoldCalcAndFilterAsync(month, day);
+            var result = run.Result;
+            string riskValue = "";
+            foreach (DictionaryEntry entry in result)
+            {
+
+                riskValue += entry.Value;
+            }
+            return await Task.FromResult(riskValue);
         }
     }
 }
