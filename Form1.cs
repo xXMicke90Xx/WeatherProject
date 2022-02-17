@@ -84,8 +84,8 @@ namespace WeatherAppUI
             Dryness_LBox.Items.Clear();
             if (ChartFunctions.outsideData.Count == 0 || ChartFunctions.insideData.Count == 0) return;
 
-            double[] outsideTemps = AvgPerQuarter(ChartFunctions.outsideData);
-            double[] insideTemps = AvgPerQuarter(ChartFunctions.insideData);
+            double[] outsideTemps = AvgPerQuarter(ChartFunctions.outsideData); // Lägger in genomsnittlig temperatur per kvart ute
+            double[] insideTemps = AvgPerQuarter(ChartFunctions.insideData); // Lägger in genomsnittlig temperatur per kvart inne
 
             for (int i = 0; i < insideTemps.Length - 1; i++)
             {
@@ -105,7 +105,7 @@ namespace WeatherAppUI
                 if (data[i].Date == data[i + 1].Date && data[i].Temperature == data[i + 1].Temperature && data[i].Placement == data[i + 1].Placement && data[i].MoistLevel == data[i + 1].MoistLevel)
                 {
                     data.RemoveAt(i);
-                    CleaningList(data);
+                    CleaningList(data); // Kör om metoden tills inte längre kommer in i if-satsen. Då bör allt vara rensat.
                 }
 
             }
@@ -164,7 +164,7 @@ namespace WeatherAppUI
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-
+            // Uppdaterar väder-data osv. när användaren väljer ett datum.
             DateTime date = dateTimePicker1.Value;
             ChartFunctions.GetWeatherData(date, date.AddDays(1));
             Setchart();
