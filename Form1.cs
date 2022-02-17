@@ -88,7 +88,7 @@ namespace WeatherAppUI
             for (int i = 0; i < insideTemps.Length - 1; i++)
             {
 
-                if (outsideTemps[i] < outsideTemps[i + 1] && insideTemps[i] > insideTemps[i + 1])
+                if (outsideTemps[i] < outsideTemps[i + 1] && insideTemps[i] > insideTemps[i + 1]) //TODO: Fixa bättre kalkyl!
                 {
                     Dryness_LBox.Items.Add($"{outsideTemps[i]}/{outsideTemps[i + 1]}  {String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15))}=>{String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15 + 30))}   {insideTemps[i]}/{insideTemps[i + 1]}");
                 }
@@ -237,7 +237,7 @@ namespace WeatherAppUI
 
         private void Help_Btn_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Vad är det du inte fattar? Tryck OK om du e dum?");
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
