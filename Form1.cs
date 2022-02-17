@@ -28,7 +28,7 @@ namespace WeatherAppUI
 
             List_Pnl.Visible = false;
             OutDorr_Btn.ForeColor = Color.Blue;
-            //DataFileRead.WriteToDatabase();
+            //DataFileRead.WriteToDatabase(); // Ta bort kommentar före metod-anropet för att skapa databas från .csv-fil vid körtid.
             Mold_Lbl.Parent = Mold_PBox;
             Mold_Lbl.Dock = DockStyle.Top;
 
@@ -55,7 +55,7 @@ namespace WeatherAppUI
             double avgTemp = 0;
             int points = 0;
             int count = 0;
-            double[] tempsPerQuarter = new double[96]; //96 är pga att det alltid para finns 96 kvartar på ett dygn, kommer aldrig att ändras!
+            double[] tempsPerQuarter = new double[96]; //96 är pga att det alltid bara finns 96 kvartar på ett dygn, kommer aldrig att ändras!
 
             for (int i = 0; i < data.Count; i++)
             {
@@ -66,9 +66,9 @@ namespace WeatherAppUI
                 }
                 if (time.AddMinutes(15) <= data[i].Date)
                 {
-                    tempsPerQuarter[count] = Math.Round(avgTemp / points, 1);
+                    tempsPerQuarter[count] = Math.Round(avgTemp / points, 1); // Lägger in medeltemperatur i listan.
                     count++;
-                    points = 0;
+                    points = 0; // Nollställer dessa inför nästa varv i loopen.
                     avgTemp = 0;
                     time = data[i].Date;
                 }
