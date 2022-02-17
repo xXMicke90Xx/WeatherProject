@@ -178,13 +178,27 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Content Include="Mögelbilder\mögel1.jpg" />
-    <Content Include="Mögelbilder\mögel2.jpg" />
-    <Content Include="Mögelbilder\mögel3.jpg" />
-    <Content Include="Mögelbilder\mögel4.jpg" />
-    <Content Include="Mögelbilder\mögel5.jpg" />
-    <Content Include="Mögelbilder\mögel6.jpg" />
-    <Content Include="Mögelbilder\mögel7.jpg" />
+    <Content Include="Mögelbilder\mögel1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mögelbilder\mögel2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mögelbilder\mögel3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mögelbilder\mögel4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mögelbilder\mögel5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mögelbilder\mögel6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mögelbilder\mögel7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TempFuktData.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -202,7 +202,7 @@ namespace WeatherAppUI
 
 
         }
-        void SetListBoxItems()
+        void SetListBoxItems() // Lägger in rätt information i ListBox beroende på om användaren valt Inside eller Outside.
         {
             if (outSide)
             {
