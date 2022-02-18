@@ -18,8 +18,8 @@ namespace WeatherAppUI
         Point lastLocation; // Till för samma som ovan
         bool outSide = true;// Håller Koll på vilken knapp som är aktiv mellan inne/ute
         QueryMethods queryMethods = new QueryMethods();
-        Image[] images = new Image[5];
-      
+        Image[] images = new Image[6];
+
         public Form1()
         {
             InitializeComponent();
@@ -37,11 +37,12 @@ namespace WeatherAppUI
             List_Pnl.Visible = false;
             OutDorr_Btn.ForeColor = Color.Blue;
             //DataFileRead.WriteToDatabase(); // Ta bort kommentar före metod-anropet för att skapa databas från .csv-fil vid körtid.
-            images[0] = Image.FromFile(@"mögelbilder\\mögel7.jpg");
-            images[1] = Image.FromFile(@"mögelbilder\\mögel1.jpg");
-            images[2] = Image.FromFile(@"mögelbilder\\mögel6.jpg");
-            images[3] = Image.FromFile(@"mögelbilder\\mögel2.jpg");
-            images[4] = Image.FromFile(@"mögelbilder\\mögel3.jpg");
+            images[0] = Image.FromFile(@"Mold Pictures\\CleanRoom.jpg");
+            images[1] = Image.FromFile(@"Mold Pictures\\Mold1.jpg");
+            images[2] = Image.FromFile(@"Mold Pictures\\Mold2.jpg");
+            images[3] = Image.FromFile(@"Mold Pictures\\Mold3.jpg");
+            images[4] = Image.FromFile(@"Mold Pictures\\Mold4.jpg");
+            images[5] = Image.FromFile(@"Mold Pictures\\ConfusedMan.jpg");
             Mold_Lbl.Parent = Mold_PBox;
             Mold_Lbl.Dock = DockStyle.Top;
 
@@ -179,7 +180,7 @@ namespace WeatherAppUI
             Setchart();
             DoorOpen();
             TempAndHumidityLabels(date);
-            Mold_Lbl.Text = "MögelRisken = " + queryMethods.MoldRiskAndDateResultAsync(date.Month, date.Day).Result;
+            Mold_Lbl.Text = "Riskfaktor = " + queryMethods.MoldRiskAndDateResultAsync(date.Month, date.Day).Result.ToString();
             Mold_PBox.Image = GetMoldPicture(queryMethods.MoldRiskAndDateResultAsync(date.Month, date.Day).Result);
         }
         void TempAndHumidityLabels(DateTime date)
@@ -187,7 +188,6 @@ namespace WeatherAppUI
 
             if (outSide == true)
             {
-
                 AvgTemp_Lbl.Text = "Average Temp: " + queryMethods.AvgtemperaturePerDayAsync(date, "Ute").Result + "°C";
                 Avg_Humidity_Lbl.Text = "Average Humidity: " + queryMethods.AvgHumidityPerDayAsync(date, "Ute").Result + "%";
             }
@@ -353,7 +353,7 @@ namespace WeatherAppUI
                 case '4':
                     return images[4];
                 default:
-                    return null;
+                    return images[5];
             }
         }
     }
