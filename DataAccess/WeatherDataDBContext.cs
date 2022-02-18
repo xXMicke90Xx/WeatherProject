@@ -8,12 +8,15 @@ using System.Data.Sql;
 
 namespace WeatherDataLib
 {
+    
     public class WeatherContext : DbContext
     {
+        
         public WeatherContext() : base("WeatherDB")
         {
 
         }
         public DbSet<WeatherData> WeatherDatas { get; set; }
     }
+    
 }

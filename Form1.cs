@@ -6,31 +6,33 @@ using WeatherDataLib;
 using WeatherAppUI.Method_Classes;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Threading.Tasks;
+using System.ServiceProcess;
 
 namespace WeatherAppUI
 {
 
     public partial class Form1 : Form
     {
-
+        
         bool isDown = false; // Musfunktion, för att kunna dra runt rutan
         Point lastLocation; // Till för samma som ovan
         bool outSide = true;// Håller Koll på vilken knapp som är aktiv mellan inne/ute
         QueryMethods queryMethods = new QueryMethods();
         Image[] images = new Image[5];
-
+      
         public Form1()
         {
             InitializeComponent();
-
+            
+            
             List_Pnl.Visible = false;
             Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
-            Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
+            //Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
             AvgTemp_Lbl.Text += queryMethods.AvgtemperaturePerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result + "°C";
             Avg_Humidity_Lbl.Text += queryMethods.AvgHumidityPerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result + "%";
             Mold_Lbl.Text += queryMethods.MoldRiskAndDateResultAsync(10, 1).Result.ToString();
             //Dryness_LBox.DataSource = calulations.AvgHumidityPerDayAsync(10, 01, "Ute").Result;
-
+           
 
             List_Pnl.Visible = false;
             OutDorr_Btn.ForeColor = Color.Blue;
@@ -90,7 +92,7 @@ namespace WeatherAppUI
 
         void DoorOpen()
         {
-            //Dryness_LBox.Items.Clear();
+            Dryness_LBox.Items.Clear();
             if (ChartFunctions.outsideData.Count == 0 || ChartFunctions.insideData.Count == 0) return;
 
             double[] outsideTemps = AvgPerQuarter(ChartFunctions.outsideData); // Lägger in genomsnittlig temperatur per kvart ute
@@ -101,7 +103,7 @@ namespace WeatherAppUI
 
                 if (outsideTemps[i] < outsideTemps[i + 1] && insideTemps[i] > insideTemps[i + 1]) //TODO: Fixa bättre kalkyl!
                 {
-                    //Dryness_LBox.Items.Add($"{outsideTemps[i]}/{outsideTemps[i + 1]}  {String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15))}=>{String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15 + 30))}   {insideTemps[i]}/{insideTemps[i + 1]}");
+                    Dryness_LBox.Items.Add($"{outsideTemps[i]}/{outsideTemps[i + 1]}  {String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15))}=>{String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15 + 30))}   {insideTemps[i]}/{insideTemps[i + 1]}");
                 }
 
             }
@@ -225,16 +227,16 @@ namespace WeatherAppUI
         }
         void SetListBoxItems() // Lägger in rätt information i ListBox beroende på om användaren valt Inside eller Outside.
         {
-            if (outSide)
-            {
-                Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
-                Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
-            }
-            else
-            {
-                Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Inne").Result;
-                Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Inne").Result;
-            }
+            //if (outSide)
+            //{
+            //    Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
+            //    Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
+            //}
+            //else
+            //{
+            //    Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Inne").Result;
+            //    Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Inne").Result;
+            //}
         }
 
         /// <summary>
