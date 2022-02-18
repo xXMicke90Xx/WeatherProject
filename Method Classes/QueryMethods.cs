@@ -158,9 +158,10 @@ namespace WeatherAppUI.Method_Classes
         {
             using (var context = new WeatherContext())
             {
-                var mold = context.WeatherDatas.Where(c => c.MoistLevel > 70 && c.Placement.Contains("Ute") && c.Temperature >= 0 && c.Date.Month == month && c.Date.Day == day)
+                var mold = context.WeatherDatas.Where(c => c.MoistLevel > 0 && c.Placement.Contains("Ute") && c.Temperature >= 0 && c.Date.Month == month && c.Date.Day == day)
                     .GroupBy(c => new { c.Date.Month, c.MoistLevel })
                     .Select(c => new { Moist = c.Key, AverageTemp = c.Average(y => y.Temperature), }).OrderByDescending(c => c.AverageTemp)
+                    .Take(1)
                     .ToList();
                 List<dynamic> result = mold.ToList<dynamic>();
                 return await Task.FromResult(result);
@@ -181,7 +182,7 @@ namespace WeatherAppUI.Method_Classes
             var result = run.Result;
             foreach (var item in result)
             {
-                if (item.Moist.MoistLevel > 70 && item.Moist.MoistLevel < 75 && item.AverageTemp <= 18)
+                if (item.Moist.MoistLevel > 0 && item.Moist.MoistLevel < 75 && item.AverageTemp <= 18)
                 {
                     int risk0 = 0;
                     riskAssesement.Add(item, risk0);
@@ -232,7 +233,6 @@ namespace WeatherAppUI.Method_Classes
             string riskValue = "";
             foreach (DictionaryEntry entry in result)
             {
-
                 riskValue += entry.Value;
             }
             return await Task.FromResult(riskValue);
