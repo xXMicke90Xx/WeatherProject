@@ -17,6 +17,7 @@ namespace WeatherAppUI
         Point lastLocation; // Till för samma som ovan
         bool outSide = true;// Håller Koll på vilken knapp som är aktiv mellan inne/ute
         QueryMethods queryMethods = new QueryMethods();
+        Image[] images = new Image[5];
 
         public Form1()
         {
@@ -34,6 +35,11 @@ namespace WeatherAppUI
             List_Pnl.Visible = false;
             OutDorr_Btn.ForeColor = Color.Blue;
             //DataFileRead.WriteToDatabase(); // Ta bort kommentar före metod-anropet för att skapa databas från .csv-fil vid körtid.
+            images[0] = Image.FromFile(@"mögelbilder\\mögel7.jpg");
+            images[1] = Image.FromFile(@"mögelbilder\\mögel1.jpg");
+            images[2] = Image.FromFile(@"mögelbilder\\mögel6.jpg");
+            images[3] = Image.FromFile(@"mögelbilder\\mögel2.jpg");
+            images[4] = Image.FromFile(@"mögelbilder\\mögel3.jpg");
             Mold_Lbl.Parent = Mold_PBox;
             Mold_Lbl.Dock = DockStyle.Top;
 
@@ -171,8 +177,8 @@ namespace WeatherAppUI
             Setchart();
             DoorOpen();
             TempAndHumidityLabels(date);
-
-
+            Mold_Lbl.Text = "MögelRisken = " + queryMethods.MoldRiskAndDateResultAsync(date.Month, date.Day).Result;
+            Mold_PBox.Image = GetMoldPicture(queryMethods.MoldRiskAndDateResultAsync(date.Month, date.Day).Result);
         }
         void TempAndHumidityLabels(DateTime date)
         {
@@ -206,9 +212,6 @@ namespace WeatherAppUI
             Setchart();
             SetListBoxItems();
             TempAndHumidityLabels(dateTimePicker1.Value);
-
-
-
         }
 
         private void Indoors_Btn_Click(object sender, EventArgs e)
@@ -219,7 +222,6 @@ namespace WeatherAppUI
             Setchart();
             SetListBoxItems();
             TempAndHumidityLabels(dateTimePicker1.Value);
-
         }
         void SetListBoxItems() // Lägger in rätt information i ListBox beroende på om användaren valt Inside eller Outside.
         {
@@ -332,6 +334,25 @@ namespace WeatherAppUI
         private void autum_Lbl_Click(object sender, EventArgs e)
         {
 
+        }
+        private Image GetMoldPicture(in string newRisk)
+        {
+            Char.TryParse(newRisk, out char risk);
+            switch (risk)
+            {
+                case '0':
+                    return images[0];
+                case '1':
+                    return images[1];
+                case '2':
+                    return images[2];
+                case '3':
+                    return images[3];
+                case '4':
+                    return images[4];
+                default:
+                    return null;
+            }
         }
     }
 }
