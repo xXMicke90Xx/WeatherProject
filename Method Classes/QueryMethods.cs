@@ -65,8 +65,17 @@ namespace WeatherAppUI.Method_Classes
         {
             using (var context = new WeatherContext())
             {
-                float result = (float)Math.Round(context.WeatherDatas.Where(y => y.Date.Month == date.Month && y.Date.Day == date.Day && y.Placement.ToLower() == placement.ToLower()).Average(x => x.MoistLevel), 1);
-                return await Task.FromResult(result);
+                float result = -1000;
+                try
+                {
+                    result = (float)Math.Round(context.WeatherDatas.Where(y => y.Date.Month == date.Month && y.Date.Day == date.Day && y.Placement.ToLower() == placement.ToLower()).Average(x => x.MoistLevel), 1);
+                }
+                catch (Exception)
+                {
+
+                }
+
+                return await Task.FromResult((float)result);
             }
         }
         /// <summary>
@@ -76,12 +85,22 @@ namespace WeatherAppUI.Method_Classes
         /// <param name="day"></param>
         /// <param name="placement"></param>
         /// <returns></returns>
-        public async Task<float> AvgtemperaturePerDayAsync(DateTime date, string placement)
+        public Task<float> AvgtemperaturePerDayAsync(DateTime date, string placement)
         {
             using (var context = new WeatherContext())
             {
-                float result = (float)Math.Round(context.WeatherDatas.Where(y => y.Date.Month == date.Month && y.Date.Day == date.Day && y.Placement.ToLower() == placement.ToLower()).Average(x => x.Temperature), 1);
-                return await Task.FromResult(result);
+
+                float result = -1000;
+                try
+                {
+                    result = (float)Math.Round(context.WeatherDatas.Where(y => y.Date.Month == date.Month && y.Date.Day == date.Day && y.Placement.ToLower() == placement.ToLower()).Average(x => x.Temperature), 1);
+                }
+                catch (Exception)
+                {
+                    
+                }
+                
+                return Task.FromResult((float)result);
             }
         }
         /// <summary>

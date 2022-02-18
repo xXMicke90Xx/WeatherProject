@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using WeatherDataLib;
 using WeatherAppUI.Method_Classes;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Threading.Tasks;
 
 namespace WeatherAppUI
 {
@@ -24,8 +25,9 @@ namespace WeatherAppUI
             List_Pnl.Visible = false;
             Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
             Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
-            AvgTemp_Lbl.Text += queryMethods.AvgtemperaturePerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result+ "°C";
-            Avg_Humidity_Lbl.Text += queryMethods.AvgHumidityPerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result+"%";
+            AvgTemp_Lbl.Text += queryMethods.AvgtemperaturePerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result + "°C";
+            Avg_Humidity_Lbl.Text += queryMethods.AvgHumidityPerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result + "%";
+            Mold_Lbl.Text += queryMethods.MoldRiskAndDateResultAsync(10, 1).Result.ToString();
             //Dryness_LBox.DataSource = calulations.AvgHumidityPerDayAsync(10, 01, "Ute").Result;
 
 
@@ -174,16 +176,19 @@ namespace WeatherAppUI
         }
         void TempAndHumidityLabels(DateTime date)
         {
+
             if (outSide == true)
             {
-                AvgTemp_Lbl.Text = "Average Temp: " + queryMethods.AvgtemperaturePerDayAsync(date, "Ute").Result+ "°C";
-                Avg_Humidity_Lbl.Text = "Average Humidity: " + queryMethods.AvgHumidityPerDayAsync(date, "Ute").Result+"%";
+
+                AvgTemp_Lbl.Text = "Average Temp: " + queryMethods.AvgtemperaturePerDayAsync(date, "Ute").Result + "°C";
+                Avg_Humidity_Lbl.Text = "Average Humidity: " + queryMethods.AvgHumidityPerDayAsync(date, "Ute").Result + "%";
             }
             else
             {
-                AvgTemp_Lbl.Text = "Average Temp: " + queryMethods.AvgtemperaturePerDayAsync(date, "Inne").Result+ "°C";
+                AvgTemp_Lbl.Text = "Average Temp: " + queryMethods.AvgtemperaturePerDayAsync(date, "Inne").Result + "°C";
                 Avg_Humidity_Lbl.Text = "Average Humidity: " + queryMethods.AvgHumidityPerDayAsync(date, "Inne").Result + "%";
             }
+
         }
         private void Setchart()
         {

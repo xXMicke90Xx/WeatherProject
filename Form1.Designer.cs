@@ -50,6 +50,8 @@
             this.Temp_Sort_Lbl = new System.Windows.Forms.Label();
             this.ListBox_Btn = new System.Windows.Forms.Button();
             this.Top_Pnl = new System.Windows.Forms.Panel();
+            this.Avg_Humidity_Lbl = new System.Windows.Forms.Label();
+            this.AvgTemp_Lbl = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.weatherDatasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.weatherDBDataSet = new WeatherAppUI.WeatherDBDataSet();
@@ -61,8 +63,6 @@
             this.Winter_Lbl = new System.Windows.Forms.Label();
             this.Mold_PBox = new System.Windows.Forms.PictureBox();
             this.Mold_Lbl = new System.Windows.Forms.Label();
-            this.AvgTemp_Lbl = new System.Windows.Forms.Label();
-            this.Avg_Humidity_Lbl = new System.Windows.Forms.Label();
             this.Menu_Pnl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -283,6 +283,26 @@
             this.Top_Pnl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Top_Pnl_MouseMove);
             this.Top_Pnl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Top_Pnl_MouseUp);
             // 
+            // Avg_Humidity_Lbl
+            // 
+            this.Avg_Humidity_Lbl.AutoSize = true;
+            this.Avg_Humidity_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Avg_Humidity_Lbl.Location = new System.Drawing.Point(580, 12);
+            this.Avg_Humidity_Lbl.Name = "Avg_Humidity_Lbl";
+            this.Avg_Humidity_Lbl.Size = new System.Drawing.Size(141, 20);
+            this.Avg_Humidity_Lbl.TabIndex = 5;
+            this.Avg_Humidity_Lbl.Text = "Average Humidity: ";
+            // 
+            // AvgTemp_Lbl
+            // 
+            this.AvgTemp_Lbl.AutoSize = true;
+            this.AvgTemp_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AvgTemp_Lbl.Location = new System.Drawing.Point(841, 12);
+            this.AvgTemp_Lbl.Name = "AvgTemp_Lbl";
+            this.AvgTemp_Lbl.Size = new System.Drawing.Size(120, 20);
+            this.AvgTemp_Lbl.TabIndex = 4;
+            this.AvgTemp_Lbl.Text = "Average Temp: ";
+            // 
             // chart1
             // 
             this.chart1.BorderlineColor = System.Drawing.Color.Black;
@@ -404,29 +424,9 @@
             this.Mold_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Mold_Lbl.Location = new System.Drawing.Point(855, 463);
             this.Mold_Lbl.Name = "Mold_Lbl";
-            this.Mold_Lbl.Size = new System.Drawing.Size(147, 25);
+            this.Mold_Lbl.Size = new System.Drawing.Size(119, 25);
             this.Mold_Lbl.TabIndex = 14;
-            this.Mold_Lbl.Text = "MögelRisken = ";
-            // 
-            // AvgTemp_Lbl
-            // 
-            this.AvgTemp_Lbl.AutoSize = true;
-            this.AvgTemp_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AvgTemp_Lbl.Location = new System.Drawing.Point(841, 12);
-            this.AvgTemp_Lbl.Name = "AvgTemp_Lbl";
-            this.AvgTemp_Lbl.Size = new System.Drawing.Size(120, 20);
-            this.AvgTemp_Lbl.TabIndex = 4;
-            this.AvgTemp_Lbl.Text = "Average Temp: ";
-            // 
-            // Avg_Humidity_Lbl
-            // 
-            this.Avg_Humidity_Lbl.AutoSize = true;
-            this.Avg_Humidity_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Avg_Humidity_Lbl.Location = new System.Drawing.Point(580, 12);
-            this.Avg_Humidity_Lbl.Name = "Avg_Humidity_Lbl";
-            this.Avg_Humidity_Lbl.Size = new System.Drawing.Size(141, 20);
-            this.Avg_Humidity_Lbl.TabIndex = 5;
-            this.Avg_Humidity_Lbl.Text = "Average Humidity: ";
+            this.Mold_Lbl.Text = "Riskfaktor = ";
             // 
             // Form1
             // 
