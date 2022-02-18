@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Sql;
+using System.Data.SqlClient;
 
 namespace WeatherDataLib
 {
-    
+
     public class WeatherContext : DbContext
     {
         
@@ -18,5 +19,5 @@ namespace WeatherDataLib
         }
         public DbSet<WeatherData> WeatherDatas { get; set; }
     }
-    
+
 }

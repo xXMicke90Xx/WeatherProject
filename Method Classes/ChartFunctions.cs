@@ -12,7 +12,7 @@ namespace WeatherAppUI.Method_Classes
 {
     public static class ChartFunctions
     {
-        public static string name = "Hello";
+        
         public static List<WeatherData> outsideData = new List<WeatherData>();
         
         public static List<WeatherData> insideData = new List<WeatherData>();

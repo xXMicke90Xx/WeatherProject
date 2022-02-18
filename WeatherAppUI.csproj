@@ -166,7 +166,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="DataAccess\appsettings.json" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\WeatherDataLib.WeatherData.datasource" />
     <None Include="Properties\Settings.settings">

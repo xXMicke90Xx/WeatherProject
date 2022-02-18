@@ -24,7 +24,7 @@ namespace WeatherAppUI
         {
             InitializeComponent();
             
-            
+
             List_Pnl.Visible = false;
             Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
             //Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
@@ -69,16 +69,16 @@ namespace WeatherAppUI
             double avgTemp = 0;
             int points = 0;
             int count = 0;
-            double[] tempsPerQuarter = new double[96]; //96 är pga att det alltid bara finns 96 kvartar på ett dygn, kommer aldrig att ändras!
+            double[] tempsPerQuarter = new double[144]; //96 är pga att det alltid bara finns 96 kvartar på ett dygn, kommer aldrig att ändras!
 
             for (int i = 0; i < data.Count; i++)
             {
-                if (time.AddMinutes(15) > data[i].Date)
+                if (time.AddMinutes(10) > data[i].Date)
                 {
                     avgTemp += data[i].Temperature;
                     points++;
                 }
-                if (time.AddMinutes(15) <= data[i].Date)
+                if (time.AddMinutes(10) <= data[i].Date)
                 {
                     tempsPerQuarter[count] = Math.Round(avgTemp / points, 1); // Lägger in medeltemperatur i listan.
                     count++;
@@ -98,16 +98,22 @@ namespace WeatherAppUI
 
             double[] outsideTemps = AvgPerQuarter(ChartFunctions.outsideData); // Lägger in genomsnittlig temperatur per kvart ute
             double[] insideTemps = AvgPerQuarter(ChartFunctions.insideData); // Lägger in genomsnittlig temperatur per kvart inne
-
+            int count = 0;
+            int j = 0;
+            
             for (int i = 0; i < insideTemps.Length - 1; i++)
             {
-
-                if (outsideTemps[i] < outsideTemps[i + 1] && insideTemps[i] > insideTemps[i + 1]) //TODO: Fixa bättre kalkyl!
+                
+                if (outsideTemps[i] < outsideTemps[i + 1] && insideTemps[i] > insideTemps[i + 1]*1.005) //TODO: Fixa bättre kalkyl!
                 {
-                    Dryness_LBox.Items.Add($"{outsideTemps[i]}/{outsideTemps[i + 1]}  {String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15))}=>{String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(i * 15 + 30))}   {insideTemps[i]}/{insideTemps[i + 1]}");
+                    Dryness_LBox.Items.Add($"{outsideTemps[i]}/{outsideTemps[i + 1]}  {String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(j * 10))}=>{String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(j * 10 + 20))}   {insideTemps[i]}/{insideTemps[i + 1]}");
+                    j++;
+                    count += 20;
                 }
-
+                j++;
             }
+            Dryness_LBox.Items.Add(count);
+            Avg_DoorOpen_Lbl.Text = "Estimated DoorOpenTime: " + count + " Min";
         }
 
         List<WeatherData> CleaningList(List<WeatherData> data)
@@ -144,7 +150,7 @@ namespace WeatherAppUI
             float max = 0;
             float min = 100;
             CleaningList(chart);
-
+            
             foreach (var c in chart)
             {
                 if (c != null)
