@@ -235,6 +235,10 @@ namespace WeatherAppUI.Method_Classes
             {
                 riskValue += entry.Value;
             }
+            if (riskValue == "")
+            {
+                riskValue = "Gick ej att beräkna";
+            }
             return await Task.FromResult(riskValue);
         }
     }
