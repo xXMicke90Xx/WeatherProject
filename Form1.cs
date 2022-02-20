@@ -13,7 +13,7 @@ namespace WeatherAppUI
 
     public partial class Form1 : Form
     {
-        
+
         bool isDown = false; // Musfunktion, för att kunna dra runt rutan
         Point lastLocation; // Till för samma som ovan
         bool outSide = true;// Håller Koll på vilken knapp som är aktiv mellan inne/ute
@@ -23,19 +23,23 @@ namespace WeatherAppUI
         public Form1()
         {
             InitializeComponent();
-            
+
 
             List_Pnl.Visible = false;
             Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
-            //Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
+            Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
             AvgTemp_Lbl.Text += queryMethods.AvgtemperaturePerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result + "°C";
             Avg_Humidity_Lbl.Text += queryMethods.AvgHumidityPerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result + "%";
             Mold_Lbl.Text += queryMethods.MoldRiskAndDateResultAsync(10, 1).Result.ToString();
             //Dryness_LBox.DataSource = calulations.AvgHumidityPerDayAsync(10, 01, "Ute").Result;
-           
+
 
             List_Pnl.Visible = false;
             OutDorr_Btn.ForeColor = Color.Blue;
+            Troll_PBox.Parent = chart1;
+
+            Troll_PBox.Dock = DockStyle.Fill;
+            Troll_PBox.Visible = false;
             //DataFileRead.WriteToDatabase(); // Ta bort kommentar före metod-anropet för att skapa databas från .csv-fil vid körtid.
             images[0] = Image.FromFile(@"Mold Pictures\\CleanRoom.jpg");
             images[1] = Image.FromFile(@"Mold Pictures\\Mold1.jpg");
@@ -48,11 +52,11 @@ namespace WeatherAppUI
 
             autum_Lbl.Parent = Autum_PBox;
             autum_Lbl.Dock = DockStyle.Top;
-            autum_Lbl.Text += " " + queryMethods.MeteorologicalAutumnCalcAsync().Result;
+            autum_Lbl.Text += " " + (queryMethods.MeteorologicalAutumnCalcAsync().Result.ToString() == String.Empty ? "Aldrig" : queryMethods.MeteorologicalAutumnCalcAsync().Result);
 
             Winter_Lbl.Dock = DockStyle.Top;
             Winter_Lbl.Parent = Winter_PBox;
-            Winter_Lbl.Text += " " + queryMethods.MeteorologicalWinterCalcAsync().Result;
+            Winter_Lbl.Text += " " + (queryMethods.MeteorologicalWinterCalcAsync().Result.ToString() == String.Empty ? "Aldrig" : queryMethods.MeteorologicalWinterCalcAsync().Result);
             //ChartFunctions
 
             this.chart1.Titles.Add("Temperature");
@@ -93,27 +97,24 @@ namespace WeatherAppUI
 
         void DoorOpen()
         {
-            Dryness_LBox.Items.Clear();
+            //Dryness_LBox.Items.Clear();
             if (ChartFunctions.outsideData.Count == 0 || ChartFunctions.insideData.Count == 0) return;
 
             double[] outsideTemps = AvgPerQuarter(ChartFunctions.outsideData); // Lägger in genomsnittlig temperatur per kvart ute
             double[] insideTemps = AvgPerQuarter(ChartFunctions.insideData); // Lägger in genomsnittlig temperatur per kvart inne
             int count = 0;
             int j = 0;
-            
+
             for (int i = 0; i < insideTemps.Length - 1; i++)
             {
-                
-                if (outsideTemps[i] < outsideTemps[i + 1] && insideTemps[i] > insideTemps[i + 1]*1.005) //TODO: Fixa bättre kalkyl!
-                {
-                    Dryness_LBox.Items.Add($"{outsideTemps[i]}/{outsideTemps[i + 1]}  {String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(j * 10))}=>{String.Format("{0:t}", ChartFunctions.insideData[0].Date.AddMinutes(j * 10 + 20))}   {insideTemps[i]}/{insideTemps[i + 1]}");
-                    j++;
+
+                if (outsideTemps[i] < outsideTemps[i + 1] && insideTemps[i] > insideTemps[i + 1] * 1.005) //TODO: Statisk kalkyl, göra den dynamisk?
                     count += 20;
-                }
                 j++;
             }
-            Dryness_LBox.Items.Add(count);
+            
             Avg_DoorOpen_Lbl.Text = "Estimated DoorOpenTime: " + count + " Min";
+
         }
 
         List<WeatherData> CleaningList(List<WeatherData> data)
@@ -150,7 +151,7 @@ namespace WeatherAppUI
             float max = 0;
             float min = 100;
             CleaningList(chart);
-            
+
             foreach (var c in chart)
             {
                 if (c != null)
@@ -170,7 +171,10 @@ namespace WeatherAppUI
                 if (temp != null)
                     series.Points.AddXY($"{String.Format("{0:t}", temp.Date)}", temp.Temperature);
             }
-
+            if (chart.Count == 0)
+                Troll_PBox.Visible = true;
+            else
+                Troll_PBox.Visible = false;
         }
 
         private void Dryness_Pnl_Paint(object sender, PaintEventArgs e)
@@ -194,13 +198,13 @@ namespace WeatherAppUI
 
             if (outSide == true)
             {
-                AvgTemp_Lbl.Text = "Average Temp: " + queryMethods.AvgtemperaturePerDayAsync(date, "Ute").Result + "°C";
-                Avg_Humidity_Lbl.Text = "Average Humidity: " + queryMethods.AvgHumidityPerDayAsync(date, "Ute").Result + "%";
+                AvgTemp_Lbl.Text = "Average Temp: " + (queryMethods.AvgtemperaturePerDayAsync(date, "Ute").Result.ToString() == "-1000" ? "Unmeasurable" : queryMethods.AvgtemperaturePerDayAsync(date, "Ute").Result.ToString() + "°C");
+                Avg_Humidity_Lbl.Text = "Average Humidity: " + (queryMethods.AvgHumidityPerDayAsync(date, "Ute").Result.ToString() == "-1000" ? "Unmeasurable" : queryMethods.AvgHumidityPerDayAsync(date, "Ute").Result.ToString() + "%");
             }
             else
             {
-                AvgTemp_Lbl.Text = "Average Temp: " + queryMethods.AvgtemperaturePerDayAsync(date, "Inne").Result + "°C";
-                Avg_Humidity_Lbl.Text = "Average Humidity: " + queryMethods.AvgHumidityPerDayAsync(date, "Inne").Result + "%";
+                AvgTemp_Lbl.Text = "Average Temp: " + (queryMethods.AvgtemperaturePerDayAsync(date, "Inne").Result.ToString() == "-1000" ? "Unmeasurable" : queryMethods.AvgtemperaturePerDayAsync(date, "Inne").Result.ToString() + "°C");
+                Avg_Humidity_Lbl.Text = "Average Humidity: " + (queryMethods.AvgHumidityPerDayAsync(date, "Inne").Result.ToString() == "-1000" ? "Unmeasurable" : queryMethods.AvgHumidityPerDayAsync(date, "Inne").Result.ToString() + "%");
             }
 
         }
@@ -233,16 +237,16 @@ namespace WeatherAppUI
         }
         void SetListBoxItems() // Lägger in rätt information i ListBox beroende på om användaren valt Inside eller Outside.
         {
-            //if (outSide)
-            //{
-            //    Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
-            //    Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
-            //}
-            //else
-            //{
-            //    Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Inne").Result;
-            //    Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Inne").Result;
-            //}
+            if (outSide)
+            {
+                Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
+                Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
+            }
+            else
+            {
+                Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Inne").Result;
+                Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Inne").Result;
+            }
         }
 
         /// <summary>

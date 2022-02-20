@@ -123,7 +123,10 @@ namespace WeatherAppUI.Method_Classes
 
                 List<string> output = result2.Select(x => String.Format("{1}/{0}", x.Date.Month, x.Date.Day)).ToList();
                 output.Reverse();
-                return await Task.FromResult(output[0]);
+                if (output.Count >= 5)
+                    return await Task.FromResult(output[0].ToString());
+                else
+                    return await Task.FromResult(string.Empty);
             }
         }
         /// <summary>
@@ -141,9 +144,10 @@ namespace WeatherAppUI.Method_Classes
                    .Where(c => c.AverageTemp <= 0)
                    .ToList();
                 List<string> result = averageTempQuery.Select(x => String.Format("{1}/{0}", x.Date.Month, x.Date.Day)).ToList();
-                string message = "Det saknas ett dygn för att meteorologisk vinter skall kunna uppstå";
-                result.Add(message);
-                return await Task.FromResult(result[0]);
+                if (result.Count >= 5)
+                return await Task.FromResult(result.Last().ToString());
+                else
+                return await Task.FromResult(string.Empty);
             }
         }
         /// <summary>

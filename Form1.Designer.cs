@@ -50,6 +50,7 @@
             this.Temp_Sort_Lbl = new System.Windows.Forms.Label();
             this.ListBox_Btn = new System.Windows.Forms.Button();
             this.Top_Pnl = new System.Windows.Forms.Panel();
+            this.Avg_DoorOpen_Lbl = new System.Windows.Forms.Label();
             this.Avg_Humidity_Lbl = new System.Windows.Forms.Label();
             this.AvgTemp_Lbl = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -63,7 +64,7 @@
             this.Winter_Lbl = new System.Windows.Forms.Label();
             this.Mold_PBox = new System.Windows.Forms.PictureBox();
             this.Mold_Lbl = new System.Windows.Forms.Label();
-            this.Avg_DoorOpen_Lbl = new System.Windows.Forms.Label();
+            this.Troll_PBox = new System.Windows.Forms.PictureBox();
             this.Menu_Pnl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -77,6 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Autum_PBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Winter_PBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mold_PBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Troll_PBox)).BeginInit();
             this.SuspendLayout();
             // 
             // Menu_Pnl
@@ -285,6 +287,16 @@
             this.Top_Pnl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Top_Pnl_MouseMove);
             this.Top_Pnl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Top_Pnl_MouseUp);
             // 
+            // Avg_DoorOpen_Lbl
+            // 
+            this.Avg_DoorOpen_Lbl.AutoSize = true;
+            this.Avg_DoorOpen_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Avg_DoorOpen_Lbl.Location = new System.Drawing.Point(284, 13);
+            this.Avg_DoorOpen_Lbl.Name = "Avg_DoorOpen_Lbl";
+            this.Avg_DoorOpen_Lbl.Size = new System.Drawing.Size(201, 20);
+            this.Avg_DoorOpen_Lbl.TabIndex = 6;
+            this.Avg_DoorOpen_Lbl.Text = "Estimated DoorOpenTime: ";
+            // 
             // Avg_Humidity_Lbl
             // 
             this.Avg_Humidity_Lbl.AutoSize = true;
@@ -430,15 +442,15 @@
             this.Mold_Lbl.TabIndex = 14;
             this.Mold_Lbl.Text = "Riskfaktor = ";
             // 
-            // Avg_DoorOpen_Lbl
+            // Troll_PBox
             // 
-            this.Avg_DoorOpen_Lbl.AutoSize = true;
-            this.Avg_DoorOpen_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Avg_DoorOpen_Lbl.Location = new System.Drawing.Point(284, 13);
-            this.Avg_DoorOpen_Lbl.Name = "Avg_DoorOpen_Lbl";
-            this.Avg_DoorOpen_Lbl.Size = new System.Drawing.Size(201, 20);
-            this.Avg_DoorOpen_Lbl.TabIndex = 6;
-            this.Avg_DoorOpen_Lbl.Text = "Estimated DoorOpenTime: ";
+            this.Troll_PBox.Image = ((System.Drawing.Image)(resources.GetObject("Troll_PBox.Image")));
+            this.Troll_PBox.Location = new System.Drawing.Point(459, 435);
+            this.Troll_PBox.Name = "Troll_PBox";
+            this.Troll_PBox.Size = new System.Drawing.Size(10, 10);
+            this.Troll_PBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Troll_PBox.TabIndex = 4;
+            this.Troll_PBox.TabStop = false;
             // 
             // Form1
             // 
@@ -446,6 +458,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(186)))), ((int)(((byte)(187)))));
             this.ClientSize = new System.Drawing.Size(1531, 877);
+            this.Controls.Add(this.Troll_PBox);
             this.Controls.Add(this.Mold_Lbl);
             this.Controls.Add(this.Mold_PBox);
             this.Controls.Add(this.Winter_Lbl);
@@ -478,6 +491,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Autum_PBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Winter_PBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mold_PBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Troll_PBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -515,6 +529,7 @@
         private System.Windows.Forms.Label Avg_Humidity_Lbl;
         private System.Windows.Forms.Label AvgTemp_Lbl;
         private System.Windows.Forms.Label Avg_DoorOpen_Lbl;
+        private System.Windows.Forms.PictureBox Troll_PBox;
     }
 }
 
