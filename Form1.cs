@@ -18,7 +18,7 @@ namespace WeatherAppUI
         Point lastLocation; // Till för samma som ovan
         bool outSide = true;// Håller Koll på vilken knapp som är aktiv mellan inne/ute
         QueryMethods queryMethods = new QueryMethods();
-        Image[] images = new Image[6];
+        Image[] images = new Image[7];
 
         public Form1()
         {
@@ -46,7 +46,8 @@ namespace WeatherAppUI
             images[2] = Image.FromFile(@"Mold Pictures\\Mold2.jpg");
             images[3] = Image.FromFile(@"Mold Pictures\\Mold3.jpg");
             images[4] = Image.FromFile(@"Mold Pictures\\Mold4.jpg");
-            images[5] = Image.FromFile(@"Mold Pictures\\ConfusedMan.jpg");
+            images[5] = Image.FromFile(@"Mold Pictures\\Mold5.jpg");
+            images[6] = Image.FromFile(@"Mold Pictures\\ConfusedMan.jpg");
             Mold_Lbl.Parent = Mold_PBox;
             Mold_Lbl.Dock = DockStyle.Top;
 
@@ -349,8 +350,10 @@ namespace WeatherAppUI
                     return images[3];
                 case '4':
                     return images[4];
-                default:
+                case '5':
                     return images[5];
+                default:
+                    return images[6];
             }
         }
     }
