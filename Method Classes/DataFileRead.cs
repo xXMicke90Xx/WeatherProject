@@ -10,14 +10,13 @@ namespace WeatherDataLib
 {
     public static class DataFileRead
     {
-        public static void WriteToDatabase()
+        public static async Task WriteToDatabase()
         {
             List<WeatherData> data = new List<WeatherData>();
             string path = @"TempFuktData.csv";
             bool title = true;
             string[] weatherFile = File.ReadAllLines(path);
-            using (var c = new WeatherContext())
-            {
+            
                 foreach (string line in weatherFile)
                 {
                     if (title == true)
@@ -26,8 +25,18 @@ namespace WeatherDataLib
                         continue;
                     }
 
-                    string[] columns = line.Split(',');
+                await Test(line);
 
+
+                }
+                
+            
+
+            async Task Test(string line)
+            {
+                string[] columns = line.Split(',');
+                using (var c = new WeatherContext())
+                {
                     var weatherData = (new WeatherData
                     {
 
@@ -38,12 +47,22 @@ namespace WeatherDataLib
 
                     });
 
-                    data.Add(weatherData);
-                }
-                c.WeatherDatas.AddRange(data);
-                c.SaveChanges();
+                    try
+                    {
 
+                        c.WeatherDatas.Add(weatherData);
+                        await c.SaveChangesAsync();
+
+                    }
+                    catch
+                    {
+
+                    }
+                }
             }
+
+
+
             float CheckTemps(string toCheck)
             {
                 if (float.TryParse(toCheck, NumberStyles.Float, CultureInfo.InvariantCulture, out float output))
@@ -53,6 +72,7 @@ namespace WeatherDataLib
                     return output2 * -1;
                 return -1000;
             }
+           
         }
     }
 }

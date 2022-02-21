@@ -65,6 +65,7 @@
             this.Mold_PBox = new System.Windows.Forms.PictureBox();
             this.Mold_Lbl = new System.Windows.Forms.Label();
             this.Troll_PBox = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.Menu_Pnl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -84,6 +85,7 @@
             // Menu_Pnl
             // 
             this.Menu_Pnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(209)))), ((int)(((byte)(209)))));
+            this.Menu_Pnl.Controls.Add(this.label1);
             this.Menu_Pnl.Controls.Add(this.Help_Btn);
             this.Menu_Pnl.Controls.Add(this.Indoors_Btn);
             this.Menu_Pnl.Controls.Add(this.OutDorr_Btn);
@@ -452,6 +454,15 @@
             this.Troll_PBox.TabIndex = 4;
             this.Troll_PBox.TabStop = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(62, 578);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -476,6 +487,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Menu_Pnl.ResumeLayout(false);
+            this.Menu_Pnl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.List_Pnl.ResumeLayout(false);
@@ -530,6 +542,7 @@
         private System.Windows.Forms.Label AvgTemp_Lbl;
         private System.Windows.Forms.Label Avg_DoorOpen_Lbl;
         private System.Windows.Forms.PictureBox Troll_PBox;
+        private System.Windows.Forms.Label label1;
     }
 }
 

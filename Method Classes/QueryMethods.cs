@@ -122,9 +122,9 @@ namespace WeatherAppUI.Method_Classes
                 var result2 = result.Skip(Math.Max(0, result.Count - 5));
 
                 List<string> output = result2.Select(x => String.Format("{1}/{0}", x.Date.Month, x.Date.Day)).ToList();
-                output.Reverse();
+                
                 if (output.Count >= 5)
-                    return await Task.FromResult(output[0].ToString());
+                    return await Task.FromResult(output.Last().ToString());
                 else
                     return await Task.FromResult(string.Empty);
             }
@@ -145,7 +145,7 @@ namespace WeatherAppUI.Method_Classes
                    .ToList();
                 List<string> result = averageTempQuery.Select(x => String.Format("{1}/{0}", x.Date.Month, x.Date.Day)).ToList();
                 if (result.Count >= 5)
-                return await Task.FromResult(result.Last().ToString());
+                return await Task.FromResult(result.Last().ToString()); 
                 else
                 return await Task.FromResult(string.Empty);
             }

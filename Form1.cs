@@ -23,7 +23,7 @@ namespace WeatherAppUI
         public Form1()
         {
             InitializeComponent();
-
+            //Task.Factory.StartNew(async () => await DataFileRead.WriteToDatabase()); // Ta bort kommentar före metod-anropet för att skapa databas från .csv-fil vid körtid.
 
             List_Pnl.Visible = false;
             Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
@@ -40,7 +40,7 @@ namespace WeatherAppUI
 
             Troll_PBox.Dock = DockStyle.Fill;
             Troll_PBox.Visible = false;
-            //DataFileRead.WriteToDatabase(); // Ta bort kommentar före metod-anropet för att skapa databas från .csv-fil vid körtid.
+            
             images[0] = Image.FromFile(@"Mold Pictures\\CleanRoom.jpg");
             images[1] = Image.FromFile(@"Mold Pictures\\Mold1.jpg");
             images[2] = Image.FromFile(@"Mold Pictures\\Mold2.jpg");
@@ -117,19 +117,7 @@ namespace WeatherAppUI
 
         }
 
-        List<WeatherData> CleaningList(List<WeatherData> data)
-        {
-            for (int i = 0; i < data.Count - 1; i++)
-            {
-                if (data[i].Date == data[i + 1].Date && data[i].Temperature == data[i + 1].Temperature && data[i].Placement == data[i + 1].Placement && data[i].MoistLevel == data[i + 1].MoistLevel)
-                {
-                    data.RemoveAt(i);
-                    CleaningList(data); // Kör om metoden tills inte längre kommer in i if-satsen. Då bör allt vara rensat.
-                }
-
-            }
-            return data;
-        }
+       
         /// <summary>
         /// Updaterar chartern med värden, baserat på en lista. listan som kommer in måste vara i rätt format dvs, innetempen eller ute tempen!
         /// </summary>
@@ -150,7 +138,7 @@ namespace WeatherAppUI
             chart1.ChartAreas[0].AxisY.IsStartedFromZero = false;
             float max = 0;
             float min = 100;
-            CleaningList(chart);
+            
 
             foreach (var c in chart)
             {
@@ -320,8 +308,7 @@ namespace WeatherAppUI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'weatherDBDataSet.WeatherDatas' table. You can move, or remove it, as needed.
-            this.weatherDatasTableAdapter.Fill(this.weatherDBDataSet.WeatherDatas);
+           
 
 
         }

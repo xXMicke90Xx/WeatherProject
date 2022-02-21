@@ -13,7 +13,7 @@ namespace WeatherDataLib
     public class WeatherContext : DbContext
     {
         
-        public WeatherContext() : base("WeatherDB")
+        public WeatherContext() : base("WeatherDB2")
         {
 
         }
