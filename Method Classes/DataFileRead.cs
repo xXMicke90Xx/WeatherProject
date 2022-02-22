@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeatherAppUI;
 
 namespace WeatherDataLib
 {
@@ -15,11 +16,13 @@ namespace WeatherDataLib
 
         public static void WriteToDatabase()
         {
-            var listToRead = new Dictionary<Tuple<DateTime, string>, WeatherData>();
+            
+            var listToRead = new List<WeatherData>();
             string path = @"TempFuktData.csv";
             bool title = true;
             string[] weatherFile = File.ReadAllLines(path);
             var weatherData = new WeatherData();
+            var data = new Dictionary<Tuple<DateTime, string>, WeatherData>();
             foreach (string line in weatherFile)
             {
                 string[] columns = line.Split(',');
@@ -38,46 +41,36 @@ namespace WeatherDataLib
                     Placement = columns[1]
 
                 });
-                try
-                {
-                    listToRead.Add(Tuple.Create(weatherData.Date, weatherData.Placement), weatherData);
-                }
-                catch
-                {
 
-                }
-
-
+                listToRead.Add(weatherData);
+                
+                
 
             }
-            using (var C = new WeatherContext())
+
+
+            RemoveDups(listToRead, data);
+           
+            using (var c = new WeatherContext())
             {
-                C.WeatherDatas.AddRange((IEnumerable<WeatherData>)listToRead);
-                C.SaveChanges();
+                c.WeatherDatas.AddRange(data.Values);
+                c.SaveChanges();
             }
-
-
-            void Test(string line)
-            {
-                
-
-                
-                
-                
-
-
-
-
-
-
-            }
-
-
-
 
         }
 
+        public static void RemoveDups(List<WeatherData> listToRead, Dictionary<Tuple<DateTime, string>, WeatherData> data)
+        {
+            foreach(var item in listToRead)
+            {
+                try
+                {
+                    data.Add(Tuple.Create(item.Date, item.Placement), item);
+                }
+                catch { }
+            }
 
+        }
 
         static float CheckTemps(string toCheck)
         {

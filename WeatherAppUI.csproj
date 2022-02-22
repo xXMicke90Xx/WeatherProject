@@ -147,6 +147,7 @@
     </Compile>
     <Compile Include="Method Classes\ChartFunctions.cs" />
     <Compile Include="Method Classes\DataFileRead.cs" />
+    <Compile Include="ObjectHasSet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Method Classes\QueryMethods.cs" />

@@ -113,7 +113,7 @@ namespace WeatherAppUI
 
         }
 
-        private async Task dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             // Uppdaterar väder-data osv. när användaren väljer ett datum.
             DateTime date = dateTimePicker1.Value;
