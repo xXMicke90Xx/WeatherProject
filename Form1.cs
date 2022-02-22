@@ -92,7 +92,7 @@ namespace WeatherAppUI
             SplineChartTemperatures(ChartFunctions.outsideData);
 
             //End Chart Functions
-            DoorOpen();
+            Avg_DoorOpen_Lbl.Text = "Estimated DoorOpenTime: " + calculations.DoorOpen() + " Min";
             SetLabelValues(startDate);
         }
 
@@ -101,7 +101,7 @@ namespace WeatherAppUI
             DateTime date = dateTimePicker1.Value;
             ChartFunctions.GetWeatherData(date, date.AddDays(1));
             Setchart();
-            DoorOpen();
+            Avg_DoorOpen_Lbl.Text = "Estimated DoorOpenTime: " + calculations.DoorOpen() + " Min";
             SetLabelValues(date);
             Mold_Lbl.Text = "Riskfaktor = " + queryMethods.MoldRiskAndDateResultAsync(date.Month, date.Day).Result.ToString();
             Mold_PBox.Image = GetMoldPicture(queryMethods.MoldRiskAndDateResultAsync(date.Month, date.Day).Result);
@@ -130,7 +130,7 @@ namespace WeatherAppUI
             DateTime date = dateTimePicker1.Value;
             ChartFunctions.GetWeatherData(date, date.AddDays(1));
             Setchart();
-            DoorOpen();
+            Avg_DoorOpen_Lbl.Text = "Estimated DoorOpenTime: " + calculations.DoorOpen().ToString() == "0" ? "Unmeasurable" : calculations.DoorOpen().ToString() + " Min";
             SetLabelValues(date);
             Mold_Lbl.Text = "Riskfaktor = " + queryMethods.MoldRiskAndDateResultAsync(date.Month, date.Day).Result.ToString();
             Mold_PBox.Image = GetMoldPicture(queryMethods.MoldRiskAndDateResultAsync(date.Month, date.Day).Result);
@@ -275,27 +275,7 @@ namespace WeatherAppUI
        
 
         
-        void DoorOpen()
-        {
-            //Dryness_LBox.Items.Clear();
-            if (ChartFunctions.outsideData.Count == 0 || ChartFunctions.insideData.Count == 0) return;
-
-            double[] outsideTemps = calculations.AvgPerQuarter(ChartFunctions.outsideData); // Lägger in genomsnittlig temperatur per kvart ute
-            double[] insideTemps = calculations.AvgPerQuarter(ChartFunctions.insideData); // Lägger in genomsnittlig temperatur per kvart inne
-            int count = 0;
-            int j = 0;
-
-            for (int i = 0; i < insideTemps.Length - 1; i++)
-            {
-
-                if (outsideTemps[i] < outsideTemps[i + 1] && insideTemps[i] > insideTemps[i + 1] * 1.005) //TODO: Statisk kalkyl, göra den dynamisk?
-                    count += 20;
-                j++;
-            }
-
-            Avg_DoorOpen_Lbl.Text = "Estimated DoorOpenTime: " + count + " Min";
-
-        }
+        
 
 
         /// <summary>
@@ -337,7 +317,7 @@ namespace WeatherAppUI
             if (outSide == true)
             {
                 AvgTemp_Lbl.Text = "Average Temp: " + (queryMethods.AvgtemperaturePerDayAsync(date, "Ute").Result.ToString() == "-1000" ? "Unmeasurable" : queryMethods.AvgtemperaturePerDayAsync(date, "Ute").Result.ToString() + "°C");
-                Avg_Humidity_Lbl.Text = "Average Humidity: " + (queryMethods.AvgHumidityPerDayAsync(date, "Ute").Result.ToString() == "-1000" ? "Unmeasurable" : queryMethods.AvgHumidityPerDayAsync(date, "Ute").Result.ToString() + "%");
+                Avg_Humidity_Lbl.Text = "Average Humidity: " + (queryMethods.AvgHumidityPerDayAsync(date, "Ute").Result.ToString() == "-1000" ? "Unmeasurable" : queryMethods.AvgHumidityPerDayAsync(date, "Ute").Result.ToString() + "%");               
                 TempDiff_Lbl.Text = "Tempdiff: " + Math.Round(calculations.GetTempDiffPerDay(ChartFunctions.outsideData), 1) + "°C";
                 TempDiff_Total_Lbl.Text = "TempdiffIn/Out: " + Math.Round(calculations.GetTempDiffPerDay(ChartFunctions.outsideData, ChartFunctions.insideData), 1) + "°C";
             }

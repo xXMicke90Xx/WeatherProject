@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeatherAppUI.Method_Classes;
 using WeatherDataLib;
 
 namespace WeatherAppUI
@@ -80,6 +81,27 @@ namespace WeatherAppUI
                 }
             }
             return max - min;
+
+        }
+        public int DoorOpen()
+        {
+            //Dryness_LBox.Items.Clear();
+            if (ChartFunctions.outsideData.Count == 0 || ChartFunctions.insideData.Count == 0) return 0;
+
+            double[] outsideTemps = AvgPerQuarter(ChartFunctions.outsideData); // Lägger in genomsnittlig temperatur per kvart ute
+            double[] insideTemps = AvgPerQuarter(ChartFunctions.insideData); // Lägger in genomsnittlig temperatur per kvart inne
+            int DoorEstimate = 0;
+            int j = 0;
+
+            for (int i = 0; i < insideTemps.Length - 1; i++)
+            {
+
+                if (outsideTemps[i] < outsideTemps[i + 1] && insideTemps[i] > insideTemps[i + 1] * 1.005) //TODO: Statisk kalkyl, göra den dynamisk?
+                    DoorEstimate += 20;
+                j++;
+            }
+
+            return DoorEstimate;
 
         }
     }
