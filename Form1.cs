@@ -31,23 +31,12 @@ namespace WeatherAppUI
         {
             
             InitializeComponent();
-            using (var c = new WeatherContext())
-            {
-                if (c.Database.Exists())
-                {
-                    if (!c.WeatherDatas.Where(x => x.Date == endDate).Any())
-                    {
-                        Task.Factory.StartNew(async () => await DataFileRead.WriteToDatabase());
-                        timer1.Enabled = true;
-                    }
-                }
-                else
-                {
-                    Task.Factory.StartNew(async () => await DataFileRead.WriteToDatabase());
-                    timer1.Enabled = true;
-                }
-            }
-
+            
+            DataFileRead.WriteToDatabase();
+          
+                
+                     
+           
            
             
 
@@ -124,7 +113,7 @@ namespace WeatherAppUI
 
         }
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        private async Task dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             // Uppdaterar väder-data osv. när användaren väljer ett datum.
             DateTime date = dateTimePicker1.Value;
