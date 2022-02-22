@@ -35,6 +35,7 @@
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.Menu_Pnl = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.Help_Btn = new System.Windows.Forms.Button();
             this.Indoors_Btn = new System.Windows.Forms.Button();
             this.OutDorr_Btn = new System.Windows.Forms.Button();
@@ -65,7 +66,9 @@
             this.Mold_PBox = new System.Windows.Forms.PictureBox();
             this.Mold_Lbl = new System.Windows.Forms.Label();
             this.Troll_PBox = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.TempDiff_Lbl = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.TempDiff_Total_Lbl = new System.Windows.Forms.Label();
             this.Menu_Pnl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -85,7 +88,7 @@
             // Menu_Pnl
             // 
             this.Menu_Pnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(209)))), ((int)(((byte)(209)))));
-            this.Menu_Pnl.Controls.Add(this.label1);
+            this.Menu_Pnl.Controls.Add(this.label2);
             this.Menu_Pnl.Controls.Add(this.Help_Btn);
             this.Menu_Pnl.Controls.Add(this.Indoors_Btn);
             this.Menu_Pnl.Controls.Add(this.OutDorr_Btn);
@@ -95,6 +98,16 @@
             this.Menu_Pnl.Name = "Menu_Pnl";
             this.Menu_Pnl.Size = new System.Drawing.Size(200, 877);
             this.Menu_Pnl.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(54, 498);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(58, 22);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "label2";
             // 
             // Help_Btn
             // 
@@ -454,14 +467,30 @@
             this.Troll_PBox.TabIndex = 4;
             this.Troll_PBox.TabStop = false;
             // 
-            // label1
+            // TempDiff_Lbl
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(62, 578);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "label1";
+            this.TempDiff_Lbl.AutoSize = true;
+            this.TempDiff_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TempDiff_Lbl.Location = new System.Drawing.Point(1379, 110);
+            this.TempDiff_Lbl.Name = "TempDiff_Lbl";
+            this.TempDiff_Lbl.Size = new System.Drawing.Size(82, 20);
+            this.TempDiff_Lbl.TabIndex = 15;
+            this.TempDiff_Lbl.Text = "TempDiff: ";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // TempDiff_Total_Lbl
+            // 
+            this.TempDiff_Total_Lbl.AutoSize = true;
+            this.TempDiff_Total_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TempDiff_Total_Lbl.Location = new System.Drawing.Point(1379, 157);
+            this.TempDiff_Total_Lbl.Name = "TempDiff_Total_Lbl";
+            this.TempDiff_Total_Lbl.Size = new System.Drawing.Size(82, 20);
+            this.TempDiff_Total_Lbl.TabIndex = 15;
+            this.TempDiff_Total_Lbl.Text = "TempDiff: ";
             // 
             // Form1
             // 
@@ -469,6 +498,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(186)))), ((int)(((byte)(187)))));
             this.ClientSize = new System.Drawing.Size(1531, 877);
+            this.Controls.Add(this.TempDiff_Total_Lbl);
+            this.Controls.Add(this.TempDiff_Lbl);
             this.Controls.Add(this.Troll_PBox);
             this.Controls.Add(this.Mold_Lbl);
             this.Controls.Add(this.Mold_PBox);
@@ -542,7 +573,10 @@
         private System.Windows.Forms.Label AvgTemp_Lbl;
         private System.Windows.Forms.Label Avg_DoorOpen_Lbl;
         private System.Windows.Forms.PictureBox Troll_PBox;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label TempDiff_Lbl;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label TempDiff_Total_Lbl;
     }
 }
 

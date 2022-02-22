@@ -7,29 +7,47 @@ using WeatherAppUI.Method_Classes;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Threading.Tasks;
 using System.ServiceProcess;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 
 namespace WeatherAppUI
 {
 
     public partial class Form1 : Form
     {
-
+        Stopwatch stopwatch = new Stopwatch();
         bool isDown = false; // Musfunktion, för att kunna dra runt rutan
         Point lastLocation; // Till för samma som ovan
         bool outSide = true;// Håller Koll på vilken knapp som är aktiv mellan inne/ute
         QueryMethods queryMethods = new QueryMethods();
         Image[] images = new Image[7];
-
+        
         public Form1()
         {
+            DateTime startDate = DateTime.Parse("2016-10-01");
+            DateTime endDate = DateTime.Parse("2016-11-30");
             InitializeComponent();
-            //Task.Factory.StartNew(async () => await DataFileRead.WriteToDatabase()); // Ta bort kommentar före metod-anropet för att skapa databas från .csv-fil vid körtid.
+            using (var c = new WeatherContext())
+            {
+                if (c.Database.Exists())
+                {
+                    if (!c.WeatherDatas.Where(x => x.Date == endDate).Any())
+                    {
+                        Task.Factory.StartNew(async () => await DataFileRead.WriteToDatabase()); 
+                    }
+                }
+                else
+                    Task.Factory.StartNew(async () => await DataFileRead.WriteToDatabase());
+            }
+            
+            
 
             List_Pnl.Visible = false;
             Temp_ListBox_LBox.DataSource = queryMethods.WarmestDayToColdestAsync("Ute").Result;
             Dryness_LBox.DataSource = queryMethods.AvgHumidityOnTheWholeDataAsync("Ute").Result;
-            AvgTemp_Lbl.Text += queryMethods.AvgtemperaturePerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result + "°C";
-            Avg_Humidity_Lbl.Text += queryMethods.AvgHumidityPerDayAsync(DateTime.Parse("2016-10-01"), "Ute").Result + "%";
+            AvgTemp_Lbl.Text += queryMethods.AvgtemperaturePerDayAsync(startDate, "Ute").Result + "°C";
+            Avg_Humidity_Lbl.Text += queryMethods.AvgHumidityPerDayAsync(startDate, "Ute").Result + "%";
             Mold_Lbl.Text += queryMethods.MoldRiskAndDateResultAsync(10, 1).Result.ToString();
             //Dryness_LBox.DataSource = calulations.AvgHumidityPerDayAsync(10, 01, "Ute").Result;
 
@@ -62,7 +80,7 @@ namespace WeatherAppUI
 
             this.chart1.Titles.Add("Temperature");
 
-            ChartFunctions.GetWeatherData(DateTime.Parse("2016-10-01"), DateTime.Parse("2016-10-02"));
+            ChartFunctions.GetWeatherData(startDate, startDate.AddDays(1));
             SplineChartTemperatures(ChartFunctions.outsideData);
 
             //End Chart Functions
@@ -123,7 +141,52 @@ namespace WeatherAppUI
         /// Updaterar chartern med värden, baserat på en lista. listan som kommer in måste vara i rätt format dvs, innetempen eller ute tempen!
         /// </summary>
         /// <param name="chart"></param>
+        float GetTempDiffPerDay(List<WeatherData> chart)
+        {
+            float max = 0;
+            float min = 100;
+            foreach (var c in chart)
+            {
+                if (c != null)
+                {
+                    if (c.Temperature > max)
+                        max = c.Temperature;
+                    if (c.Temperature < min)
+                        min = c.Temperature;
+                }
+            }
+            return max - min;
 
+        }
+        float GetTempDiffPerDay(List<WeatherData> chart, List<WeatherData> chart2)
+        {
+            float max = 0;
+            float min = 100;
+            foreach (var c in chart)
+            {
+                if (c != null)
+                {
+                    if (c.Temperature > max)
+                    { max = c.Temperature; }
+                        
+                    if (c.Temperature < min)
+                        min = c.Temperature;
+                }
+            }
+            foreach (var c in chart2)
+            {
+                if (c != null)
+                {
+                    if (c.Temperature > max)
+                    { max = c.Temperature; }
+
+                    if (c.Temperature < min)
+                        min = c.Temperature;
+                }
+            }
+            return max - min;
+
+        }
         private void SplineChartTemperatures(List<WeatherData> chart)
         {
 
@@ -136,22 +199,9 @@ namespace WeatherAppUI
             chart1.ChartAreas[0].AxisX.Interval = 30;
             chart1.ChartAreas[0].AxisY.Interval = 2;
             chart1.ChartAreas[0].AxisX.Minimum = 0;
-            chart1.ChartAreas[0].AxisY.IsStartedFromZero = false;
-            float max = 0;
-            float min = 100;
+            chart1.ChartAreas[0].AxisY.IsStartedFromZero = false;                      
             
-
-            foreach (var c in chart)
-            {
-                if (c != null)
-                {
-                    if (c.Temperature > max)
-                        max = c.Temperature;
-                    if (c.Temperature < min)
-                        min = c.Temperature;
-                }
-            }
-            if (max < min + 5)
+            if (GetTempDiffPerDay(chart) > 2 && GetTempDiffPerDay(chart) < 6)
                 chart1.ChartAreas[0].AxisY.Interval = 0.5f;
 
 
@@ -178,22 +228,26 @@ namespace WeatherAppUI
             ChartFunctions.GetWeatherData(date, date.AddDays(1));
             Setchart();
             DoorOpen();
-            TempAndHumidityLabels(date);
+            SetLabelValues(date);
             Mold_Lbl.Text = "Riskfaktor = " + queryMethods.MoldRiskAndDateResultAsync(date.Month, date.Day).Result.ToString();
             Mold_PBox.Image = GetMoldPicture(queryMethods.MoldRiskAndDateResultAsync(date.Month, date.Day).Result);
         }
-        void TempAndHumidityLabels(DateTime date)
+        void SetLabelValues(DateTime date)
         {
 
             if (outSide == true)
             {
                 AvgTemp_Lbl.Text = "Average Temp: " + (queryMethods.AvgtemperaturePerDayAsync(date, "Ute").Result.ToString() == "-1000" ? "Unmeasurable" : queryMethods.AvgtemperaturePerDayAsync(date, "Ute").Result.ToString() + "°C");
                 Avg_Humidity_Lbl.Text = "Average Humidity: " + (queryMethods.AvgHumidityPerDayAsync(date, "Ute").Result.ToString() == "-1000" ? "Unmeasurable" : queryMethods.AvgHumidityPerDayAsync(date, "Ute").Result.ToString() + "%");
+                TempDiff_Lbl.Text = "Tempdiff: " + Math.Round(GetTempDiffPerDay(ChartFunctions.outsideData), 1) + "°C";
+                TempDiff_Total_Lbl.Text = "Tempdiff: " + Math.Round(GetTempDiffPerDay(ChartFunctions.outsideData, ChartFunctions.insideData), 1) + "°C";
             }
             else
             {
                 AvgTemp_Lbl.Text = "Average Temp: " + (queryMethods.AvgtemperaturePerDayAsync(date, "Inne").Result.ToString() == "-1000" ? "Unmeasurable" : queryMethods.AvgtemperaturePerDayAsync(date, "Inne").Result.ToString() + "°C");
                 Avg_Humidity_Lbl.Text = "Average Humidity: " + (queryMethods.AvgHumidityPerDayAsync(date, "Inne").Result.ToString() == "-1000" ? "Unmeasurable" : queryMethods.AvgHumidityPerDayAsync(date, "Inne").Result.ToString() + "%");
+                TempDiff_Lbl.Text = "Tempdiff: " + Math.Round(GetTempDiffPerDay(ChartFunctions.insideData), 1) + "°C";
+                TempDiff_Total_Lbl.Text = "Tempdiff: " + Math.Round(GetTempDiffPerDay(ChartFunctions.insideData, ChartFunctions.outsideData), 1) + "°C";
             }
 
         }
@@ -212,7 +266,7 @@ namespace WeatherAppUI
             outSide = true;
             Setchart();
             SetListBoxItems();
-            TempAndHumidityLabels(dateTimePicker1.Value);
+            SetLabelValues(dateTimePicker1.Value);
         }
 
         private void Indoors_Btn_Click(object sender, EventArgs e)
@@ -222,7 +276,7 @@ namespace WeatherAppUI
             outSide = false;
             Setchart();
             SetListBoxItems();
-            TempAndHumidityLabels(dateTimePicker1.Value);
+            SetLabelValues(dateTimePicker1.Value);
         }
         void SetListBoxItems() // Lägger in rätt information i ListBox beroende på om användaren valt Inside eller Outside.
         {
@@ -355,6 +409,13 @@ namespace WeatherAppUI
                 default:
                     return images[6];
             }
+        }
+
+       
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            
         }
     }
 }
