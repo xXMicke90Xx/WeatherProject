@@ -115,13 +115,14 @@ namespace WeatherAppUI.Method_Classes
             {
                 var averageTempQuery = context.WeatherDatas.Where(c => c.Placement.Contains("Ute"))
                    .GroupBy(c => new { c.Date.Month, c.Date.Day })
-                   .Select(c => new { Date = c.Key, AverageTemp = c.Average(y => y.Temperature) }).OrderByDescending(c => c.Date.Month)
+                   .Select(c => new { Date = c.Key, AverageTemp = c.Average(y => y.Temperature) })
+                   .OrderBy(c => c.Date.Month)
+                   .ThenBy(c => c.Date.Day)
                    .Where(c => c.AverageTemp > 0 && c.AverageTemp < 10)
+                   .Take(5)
                    .ToList();
-                var result = averageTempQuery.OrderByDescending(x => x.Date.Month).ThenByDescending(x => x.Date.Day).ThenBy(x => x.AverageTemp).ToList();
-                var result2 = result.Skip(Math.Max(0, result.Count - 5));
 
-                List<string> output = result2.Select(x => String.Format("{1}/{0}", x.Date.Month, x.Date.Day)).ToList();
+                List<string> output = averageTempQuery.Select(x => String.Format("{1}/{0}", x.Date.Month, x.Date.Day)).ToList();
                 
                 if (output.Count >= 5)
                     return await Task.FromResult(output.Last().ToString());
