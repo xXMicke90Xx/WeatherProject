@@ -30,12 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.Menu_Pnl = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.Help_Btn = new System.Windows.Forms.Button();
             this.Indoors_Btn = new System.Windows.Forms.Button();
             this.OutDorr_Btn = new System.Windows.Forms.Button();
@@ -88,7 +87,6 @@
             // Menu_Pnl
             // 
             this.Menu_Pnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(209)))), ((int)(((byte)(209)))));
-            this.Menu_Pnl.Controls.Add(this.label2);
             this.Menu_Pnl.Controls.Add(this.Help_Btn);
             this.Menu_Pnl.Controls.Add(this.Indoors_Btn);
             this.Menu_Pnl.Controls.Add(this.OutDorr_Btn);
@@ -98,16 +96,6 @@
             this.Menu_Pnl.Name = "Menu_Pnl";
             this.Menu_Pnl.Size = new System.Drawing.Size(200, 877);
             this.Menu_Pnl.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(54, 498);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 22);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "label2";
             // 
             // Help_Btn
             // 
@@ -335,39 +323,39 @@
             // chart1
             // 
             this.chart1.BorderlineColor = System.Drawing.Color.Black;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea4.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea4);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Top;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            legend4.Name = "Legend1";
+            this.chart1.Legends.Add(legend4);
             this.chart1.Location = new System.Drawing.Point(459, 40);
             this.chart1.Name = "chart1";
-            series1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Center;
-            series1.BorderColor = System.Drawing.Color.Black;
-            series1.BorderWidth = 5;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Color = System.Drawing.Color.Black;
-            series1.CustomProperties = "LabelStyle=Bottom, EmptyPointValue=Zero";
-            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series1.LabelBackColor = System.Drawing.Color.White;
-            series1.LabelBorderWidth = 10;
-            series1.Legend = "Legend1";
-            series1.MarkerSize = 1;
-            series1.Name = "Temperature";
-            series1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series1.ShadowColor = System.Drawing.Color.DimGray;
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series1.YValueMembers = "Temperature";
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            this.chart1.Series.Add(series1);
+            series4.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Center;
+            series4.BorderColor = System.Drawing.Color.Black;
+            series4.BorderWidth = 5;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series4.Color = System.Drawing.Color.Black;
+            series4.CustomProperties = "LabelStyle=Bottom, EmptyPointValue=Zero";
+            series4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series4.LabelBackColor = System.Drawing.Color.White;
+            series4.LabelBorderWidth = 10;
+            series4.Legend = "Legend1";
+            series4.MarkerSize = 1;
+            series4.Name = "Temperature";
+            series4.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
+            series4.ShadowColor = System.Drawing.Color.DimGray;
+            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series4.YValueMembers = "Temperature";
+            series4.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.chart1.Series.Add(series4);
             this.chart1.Size = new System.Drawing.Size(1072, 405);
             this.chart1.TabIndex = 7;
             this.chart1.Text = "Temperature";
-            title1.DockedToChartArea = "ChartArea1";
-            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title1.Name = "Temperature Chart";
-            this.chart1.Titles.Add(title1);
+            title4.DockedToChartArea = "ChartArea1";
+            title4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title4.Name = "Temperature Chart";
+            this.chart1.Titles.Add(title4);
             this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // weatherDatasBindingSource
@@ -470,8 +458,9 @@
             // TempDiff_Lbl
             // 
             this.TempDiff_Lbl.AutoSize = true;
+            this.TempDiff_Lbl.BackColor = System.Drawing.Color.White;
             this.TempDiff_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TempDiff_Lbl.Location = new System.Drawing.Point(1379, 110);
+            this.TempDiff_Lbl.Location = new System.Drawing.Point(1360, 366);
             this.TempDiff_Lbl.Name = "TempDiff_Lbl";
             this.TempDiff_Lbl.Size = new System.Drawing.Size(82, 20);
             this.TempDiff_Lbl.TabIndex = 15;
@@ -479,14 +468,15 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 1000;
+            this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // TempDiff_Total_Lbl
             // 
             this.TempDiff_Total_Lbl.AutoSize = true;
+            this.TempDiff_Total_Lbl.BackColor = System.Drawing.Color.White;
             this.TempDiff_Total_Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TempDiff_Total_Lbl.Location = new System.Drawing.Point(1379, 157);
+            this.TempDiff_Total_Lbl.Location = new System.Drawing.Point(1360, 398);
             this.TempDiff_Total_Lbl.Name = "TempDiff_Total_Lbl";
             this.TempDiff_Total_Lbl.Size = new System.Drawing.Size(82, 20);
             this.TempDiff_Total_Lbl.TabIndex = 15;
@@ -518,7 +508,6 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Menu_Pnl.ResumeLayout(false);
-            this.Menu_Pnl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.List_Pnl.ResumeLayout(false);
@@ -573,7 +562,6 @@
         private System.Windows.Forms.Label AvgTemp_Lbl;
         private System.Windows.Forms.Label Avg_DoorOpen_Lbl;
         private System.Windows.Forms.PictureBox Troll_PBox;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label TempDiff_Lbl;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label TempDiff_Total_Lbl;

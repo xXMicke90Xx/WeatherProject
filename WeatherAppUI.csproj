@@ -136,6 +136,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculations.cs" />
     <Compile Include="DataAccess\WeatherDataDBContext.cs" />
     <Compile Include="DataModels\WeatherData.cs" />
     <Compile Include="Form1.cs">
